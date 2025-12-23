@@ -1,0 +1,330 @@
+my-next-app/
+│
+├── .next/                                  # Next.js build output
+├── node_modules/                          # Dependencies
+├── public/                                 # Static files
+│   ├── images/
+│   │   ├── products/
+│   │   │   ├── electronics/
+│   │   │   │   ├── .gitkeep
+│   │   │   ├── textiles/
+│   │   │   │   ├── .gitkeep
+│   │   │   ├── machinery/
+│   │   │   │   ├── .gitkeep
+│   │   │   └── other-categories/
+│   │   │       ├── .gitkeep
+│   │   ├── categories/
+│   │   │   ├── .gitkeep
+│   │   ├── logos/
+│   │   │   ├── .gitkeep
+│   │   └── ui/
+│   │       ├── icons/
+│   │       │   ├── .gitkeep
+│   │       ├── patterns/
+│   │       │   ├── .gitkeep
+│   │       └── backgrounds/
+│   │           ├── .gitkeep
+│   └── documents/
+│       ├── catalogues/
+│       │   ├── .gitkeep
+│
+├── data/                                   # JSON Data Storage (No Database)
+│   ├── categories.json
+│   ├── products.json
+│   ├── inquiries.json
+│   ├── users.json
+│   ├── config.json
+│   └── testimonials.json
+│
+├── src/
+│   ├── app/                               # Next.js App Router
+│   │   ├── layout.tsx                     # Root layout
+│   │   ├── page.tsx                       # Home page
+│   │   ├── globals.css                    # Global styles
+│   │   ├── page.css                       # Home page styles
+│   │   │
+│   │   ├── (user-pages)/                  # User-facing pages group
+│   │   │   ├── layout.tsx                 # User layout
+│   │   │   ├── products/
+│   │   │   │   ├── page.tsx               # All products page
+│   │   │   │   ├── products.css
+│   │   │   │   ├── [productId]/
+│   │   │   │   │   ├── page.tsx           # Product detail page
+│   │   │   │   │   └── product-detail.css
+│   │   │   ├── categories/
+│   │   │   │   ├── [categoryId]/
+│   │   │   │   │   ├── page.tsx           # Category products page
+│   │   │   │   │   └── category.css
+│   │   │   ├── contact/
+│   │   │   │   ├── page.tsx               # Contact page
+│   │   │   │   └── contact.css
+│   │   │   ├── catalogue/
+│   │   │   │   ├── page.tsx               # Catalogue request page
+│   │   │   │   └── catalogue.css
+│   │   │   ├── about/
+│   │   │   │   ├── page.tsx               # About page
+│   │   │   │   └── about.css
+│   │   │   ├── cart/
+│   │   │   │   ├── page.tsx               # Cart/Inquiry page
+│   │   │   │   └── cart.css
+│   │   │
+│   │   ├── (admin-pages)/                 # Admin pages group
+│   │   │   ├── admin/
+│   │   │   │   ├── layout.tsx             # Admin layout
+│   │   │   │   ├── page.tsx               # Admin dashboard
+│   │   │   │   ├── dashboard.css
+│   │   │   │   ├── login/
+│   │   │   │   │   ├── page.tsx           # Admin login page
+│   │   │   │   │   └── login.css
+│   │   │   │   ├── categories/
+│   │   │   │   │   ├── page.tsx           # View categories
+│   │   │   │   │   ├── categories.css
+│   │   │   │   │   ├── add/
+│   │   │   │   │   │   ├── page.tsx       # Add category
+│   │   │   │   │   │   └── add-category.css
+│   │   │   │   │   └── [categoryId]/
+│   │   │   │   │       ├── edit/
+│   │   │   │   │       │   ├── page.tsx   # Edit category
+│   │   │   │   │       │   └── edit-category.css
+│   │   │   │   ├── products/
+│   │   │   │   │   ├── page.tsx           # View products
+│   │   │   │   │   ├── products.css
+│   │   │   │   │   ├── add/
+│   │   │   │   │   │   ├── page.tsx       # Add product
+│   │   │   │   │   │   └── add-product.css
+│   │   │   │   │   └── [productId]/
+│   │   │   │   │       ├── edit/
+│   │   │   │   │       │   ├── page.tsx   # Edit product
+│   │   │   │   │       │   ├── edit-product.css
+│   │   │   │   │       │   └── view-as-user.tsx # "View as User" modal component
+│   │   │   │   ├── inquiries/
+│   │   │   │   │   ├── page.tsx           # View all inquiries
+│   │   │   │   │   ├── inquiries.css
+│   │   │   │   │   └── [inquiryId]/
+│   │   │   │   │       ├── page.tsx       # Inquiry details
+│   │   │   │   │       └── inquiry-detail.css
+│   │   │   │   ├── catalogues/
+│   │   │   │   │   ├── page.tsx           # Manage catalogues
+│   │   │   │   │   └── catalogues.css
+│   │   │   │   ├── users/
+│   │   │   │   │   ├── page.tsx           # Catalogue request users
+│   │   │   │   │   └── users.css
+│   │   │   │   ├── settings/
+│   │   │   │   │   ├── page.tsx           # Business settings
+│   │   │   │   │   └── settings.css
+│   │   │   │
+│   │   ├── api/                           # API Routes
+│   │   │   ├── products/
+│   │   │   │   ├── route.ts               # GET all products
+│   │   │   │   ├── [id]/
+│   │   │   │   │   └── route.ts           # GET/POST/PUT/DELETE product
+│   │   │   │   └── upload-image/
+│   │   │   │       └── route.ts           # Upload product image
+│   │   │   ├── categories/
+│   │   │   │   ├── route.ts               # GET/POST categories
+│   │   │   │   └── [id]/
+│   │   │   │       └── route.ts           # GET/PUT/DELETE category
+│   │   │   ├── inquiries/
+│   │   │   │   ├── route.ts               # GET/POST inquiries
+│   │   │   │   ├── [id]/
+│   │   │   │   │   └── route.ts           # GET inquiry by ID
+│   │   │   │   └── submit/
+│   │   │   │       └── route.ts           # Submit new inquiry
+│   │   │   ├── catalogues/
+│   │   │   │   ├── route.ts               # GET catalogues
+│   │   │   │   └── send/
+│   │   │   │       └── route.ts           # Send catalogue via email
+│   │   │   ├── users/
+│   │   │   │   ├── route.ts               # GET catalogue request users
+│   │   │   │   └── [id]/
+│   │   │   │       └── route.ts           # GET/DELETE user
+│   │   │   ├── admin/
+│   │   │   │   ├── login/
+│   │   │   │   │   └── route.ts           # Admin login
+│   │   │   │   └── logout/
+│   │   │   │       └── route.ts           # Admin logout
+│   │   │   └── health/
+│   │   │       └── route.ts               # Health check endpoint
+│   │
+│   ├── components/                        # Reusable Components
+│   │   ├── shared/                        # Shared components used everywhere
+│   │   │   ├── Navbar/
+│   │   │   │   ├── Navbar.tsx
+│   │   │   │   └── navbar.css
+│   │   │   ├── Footer/
+│   │   │   │   ├── Footer.tsx
+│   │   │   │   └── footer.css
+│   │   │   ├── Breadcrumb/
+│   │   │   │   ├── Breadcrumb.tsx
+│   │   │   │   └── breadcrumb.css
+│   │   │   ├── SearchBar/
+│   │   │   │   ├── SearchBar.tsx
+│   │   │   │   └── searchbar.css
+│   │   │   ├── Loading/
+│   │   │   │   ├── Loading.tsx
+│   │   │   │   ├── LoadingSkeleton.tsx
+│   │   │   │   └── loading.css
+│   │   │   ├── Toast/
+│   │   │   │   ├── Toast.tsx
+│   │   │   │   └── toast.css
+│   │   │   └── Modal/
+│   │   │       ├── Modal.tsx
+│   │   │       └── modal.css
+│   │   │
+│   │   ├── user/                         # User-specific components
+│   │   │   ├── ProductCard/
+│   │   │   │   ├── ProductCard.tsx
+│   │   │   │   └── product-card.css
+│   │   │   ├── ProductGrid/
+│   │   │   │   ├── ProductGrid.tsx
+│   │   │   │   └── product-grid.css
+│   │   │   ├── CategoryCard/
+│   │   │   │   ├── CategoryCard.tsx
+│   │   │   │   └── category-card.css
+│   │   │   ├── CategoryGrid/
+│   │   │   │   ├── CategoryGrid.tsx
+│   │   │   │   └── category-grid.css
+│   │   │   ├── FilterPanel/
+│   │   │   │   ├── FilterPanel.tsx
+│   │   │   │   └── filter-panel.css
+│   │   │   ├── SortDropdown/
+│   │   │   │   ├── SortDropdown.tsx
+│   │   │   │   └── sort-dropdown.css
+│   │   │   ├── InquiryForm/
+│   │   │   │   ├── InquiryForm.tsx
+│   │   │   │   └── inquiry-form.css
+│   │   │   ├── CatalogueRequestForm/
+│   │   │   │   ├── CatalogueRequestForm.tsx
+│   │   │   │   └── catalogue-form.css
+│   │   │   ├── ProductImageGallery/
+│   │   │   │   ├── ProductImageGallery.tsx
+│   │   │   │   └── image-gallery.css
+│   │   │   └── QuickInquiryModal/
+│   │   │       ├── QuickInquiryModal.tsx
+│   │   │       └── quick-inquiry.css
+│   │   │
+│   │   └── admin/                        # Admin-specific components
+│   │       ├── Sidebar/
+│   │       │   ├── AdminSidebar.tsx
+│   │       │   └── sidebar.css
+│   │       ├── TopBar/
+│   │       │   ├── AdminTopBar.tsx
+│   │       │   └── topbar.css
+│   │       ├── DashboardCards/
+│   │       │   ├── DashboardCard.tsx
+│   │       │   └── dashboard-card.css
+│   │       ├── DataTable/
+│   │       │   ├── DataTable.tsx
+│   │       │   ├── data-table.css
+│   │       │   └── useDataTable.tsx
+│   │       ├── ProductForm/
+│   │       │   ├── ProductForm.tsx
+│   │       │   ├── ProductImageUpload.tsx
+│   │       │   └── product-form.css
+│   │       ├── CategoryForm/
+│   │       │   ├── CategoryForm.tsx
+│   │       │   ├── CategoryImageUpload.tsx
+│   │       │   └── category-form.css
+│   │       ├── EditProductForm/
+│   │       │   ├── EditProductForm.tsx
+│   │       │   ├── ViewAsUserPreview.tsx
+│   │       │   └── edit-product-form.css
+│   │       ├── InquiryList/
+│   │       │   ├── InquiryList.tsx
+│   │       │   └── inquiry-list.css
+│   │       ├── CatalogueManager/
+│   │       │   ├── CatalogueManager.tsx
+│   │       │   └── catalogue-manager.css
+│   │       ├── UsersList/
+│   │       │   ├── UsersList.tsx
+│   │       │   └── users-list.css
+│   │       └── ConfirmDialog/
+│   │           ├── ConfirmDialog.tsx
+│   │           └── confirm-dialog.css
+│   │
+│   ├── hooks/                            # Custom React Hooks
+│   │   ├── useProducts.ts                # Fetch & manage products
+│   │   ├── useCategories.ts              # Fetch & manage categories
+│   │   ├── useInquiries.ts               # Fetch & manage inquiries
+│   │   ├── useUsers.ts                   # Fetch & manage users
+│   │   ├── useAdminAuth.ts               # Admin authentication
+│   │   ├── useLocalStorage.ts            # Local storage management
+│   │   ├── useImageUpload.ts             # Image upload handling
+│   │   ├── useForm.ts                    # Form state management
+│   │   ├── useFetch.ts                   # Generic fetch hook
+│   │   ├── useDebounce.ts                # Debounce hook
+│   │   ├── useWindowSize.ts              # Window size detection
+│   │   └── useNotification.ts            # Toast notifications
+│   │
+│   ├── context/                          # React Context API
+│   │   ├── AuthContext.tsx               # Admin auth context
+│   │   ├── ProductContext.tsx            # Products context
+│   │   ├── CategoryContext.tsx           # Categories context
+│   │   ├── UIContext.tsx                 # UI state context
+│   │   ├── NotificationContext.tsx       # Notifications context
+│   │   └── AppProviders.tsx              # Combine all providers
+│   │
+│   ├── utils/                            # Utility Functions
+│   │   ├── jsonHandler.ts                # Read/write JSON files
+│   │   ├── imageHandler.ts               # Image upload handling
+│   │   ├── fileSystem.ts                 # File system operations
+│   │   ├── validators.ts                 # Form validation
+│   │   ├── formatters.ts                 # Data formatting
+│   │   ├── constants.ts                  # App constants
+│   │   ├── errorHandler.ts               # Error handling
+│   │   ├── logger.ts                     # Logging utility
+│   │   ├── apiClient.ts                  # API client setup
+│   │   └── helpers.ts                    # General helpers
+│   │
+│   ├── types/                            # TypeScript Type Definitions
+│   │   ├── index.ts                      # Main types export
+│   │   ├── product.ts                    # Product type
+│   │   ├── category.ts                   # Category type
+│   │   ├── inquiry.ts                    # Inquiry type
+│   │   ├── user.ts                       # User type
+│   │   ├── admin.ts                      # Admin type
+│   │   ├── api.ts                        # API response types
+│   │   ├── config.ts                     # Config type
+│   │   └── common.ts                     # Common types
+│   │
+│   ├── lib/                              # Library Functions
+│   │   ├── jwt.ts                        # JWT handling
+│   │   ├── email.ts                      # Email setup (Nodemailer/SendGrid)
+│   │   ├── pdf.ts                        # PDF generation
+│   │   ├── auth.ts                       # Authentication utilities
+│   │   └── encryption.ts                 # Password encryption
+│   │
+│   ├── middleware/                       # Middleware
+│   │   ├── auth.ts                       # Authentication middleware
+│   │   ├── errorHandler.ts               # Error handling middleware
+│   │   └── validators.ts                 # Validation middleware
+│   │
+│   ├── styles/                           # Global Styles
+│   │   ├── globals.css                   # Global CSS reset
+│   │   ├── variables.css                 # CSS variables & theme
+│   │   ├── animations.css                # Keyframe animations
+│   │   ├── responsive.css                # Media queries
+│   │   ├── typography.css                # Font & text styles
+│   │   ├── layout.css                    # Layout utilities
+│   │   └── themes/
+│   │       ├── light.css                 # Light theme
+│   │       └── dark.css                  # Dark theme
+│   │
+│   └── config/                           # Configuration Files
+│       ├── siteConfig.ts                 # Site configuration
+│       ├── apiConfig.ts                  # API configuration
+│       └── emailConfig.ts                # Email configuration
+│
+├── public/                               # Static assets (images, fonts)
+│   └── fonts/                            # Custom fonts
+│
+├── .env.local                            # Environment variables
+├── .env.example                          # Environment template
+├── .gitignore                            # Git ignore
+├── next.config.ts                        # Next.js config
+├── tsconfig.json                         # TypeScript config
+├── tailwind.config.ts                    # Tailwind config (optional)
+├── postcss.config.js                     # PostCSS config (optional)
+├── package.json                          # Dependencies
+├── package-lock.json                     # Lock file
+└── README.md                             # Project documentation
