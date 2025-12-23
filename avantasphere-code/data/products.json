@@ -1,0 +1,172 @@
+{
+  "products": [
+    {
+      "id": "prod_001",
+      "name": "Industrial LED Bulbs 10W",
+      "sku": "SKU-LED-001",
+      "categoryId": "cat_001",
+      "subCategoryId": "subcat_002",
+      "shortDescription": "High efficiency LED bulbs for industrial use",
+      "fullDescription": "Professional grade LED bulbs with 50,000 hour lifespan. Perfect for factories, warehouses, and commercial spaces. Energy-efficient and eco-friendly. Certified ISO 9001.",
+      "images": [
+        "/images/products/electronics/led-bulb-1.jpg",
+        "/images/products/electronics/led-bulb-2.jpg"
+      ],
+      "thumbnailImage": "/images/products/electronics/led-bulb-thumb.jpg",
+      "specifications": {
+        "wattage": "10W",
+        "voltage": "220V",
+        "efficiency": "A+",
+        "color": "White",
+        "lifespan": "50000 hours"
+      },
+      "pricing": {
+        "cost": 45.50,
+        "currency": "USD",
+        "moq": 100,
+        "showPrice": true
+      },
+      "shipping": {
+        "weight": 0.2,
+        "port": "Port of Mumbai",
+        "shippingCost": 5.00,
+        "shippingTime": "15-20 days",
+        "incoterms": "FOB"
+      },
+      "customs": {
+        "hsCode": "8539.31.00",
+        "country": "India"
+      },
+      "visibility": true,
+      "featured": true,
+      "createdAt": "2025-01-15T10:30:00Z",
+      "updatedAt": "2025-01-20T14:45:00Z"
+    },
+    {
+      "id": "prod_002",
+      "name": "Cotton Fabric Roll 100M",
+      "sku": "SKU-COT-001",
+      "categoryId": "cat_002",
+      "subCategoryId": "subcat_004",
+      "shortDescription": "Premium 100% organic cotton fabric",
+      "fullDescription": "High-quality organic cotton fabric, perfect for garment manufacturing. Soft, breathable, and durable. Available in various colors. GSM: 150.",
+      "images": [
+        "/images/products/textiles/cotton-1.jpg",
+        "/images/products/textiles/cotton-2.jpg"
+      ],
+      "thumbnailImage": "/images/products/textiles/cotton-thumb.jpg",
+      "specifications": {
+        "material": "100% Organic Cotton",
+        "gsm": 150,
+        "width": "58 inches",
+        "length": "100 meters",
+        "colors": "White, Blue, Red, Black"
+      },
+      "pricing": {
+        "cost": 120.00,
+        "currency": "USD",
+        "moq": 10,
+        "showPrice": true
+      },
+      "shipping": {
+        "weight": 15,
+        "port": "Port of Nhava Sheva",
+        "shippingCost": 20.00,
+        "shippingTime": "20-25 days",
+        "incoterms": "CIF"
+      },
+      "customs": {
+        "hsCode": "5208.21.00",
+        "country": "India"
+      },
+      "visibility": true,
+      "featured": true,
+      "createdAt": "2025-01-16T11:20:00Z",
+      "updatedAt": "2025-01-19T09:15:00Z"
+    },
+    {
+      "id": "prod_003",
+      "name": "Power Supply Unit 500W",
+      "sku": "SKU-PSU-001",
+      "categoryId": "cat_001",
+      "subCategoryId": "subcat_003",
+      "shortDescription": "Heavy-duty 500W power supply unit",
+      "fullDescription": "Industrial-grade power supply with multiple output channels. Suitable for manufacturing and assembly plants. CE and RoHS certified. Warranty: 2 years.",
+      "images": [
+        "/images/products/electronics/psu-1.jpg",
+        "/images/products/electronics/psu-2.jpg"
+      ],
+      "thumbnailImage": "/images/products/electronics/psu-thumb.jpg",
+      "specifications": {
+        "wattage": "500W",
+        "voltage": "220V",
+        "outputs": "Multiple",
+        "warranty": "2 years",
+        "certification": "CE, RoHS"
+      },
+      "pricing": {
+        "cost": 280.00,
+        "currency": "USD",
+        "moq": 50,
+        "showPrice": true
+      },
+      "shipping": {
+        "weight": 5.5,
+        "port": "Port of Mumbai",
+        "shippingCost": 15.00,
+        "shippingTime": "18-22 days",
+        "incoterms": "FOB"
+      },
+      "customs": {
+        "hsCode": "8504.40.90",
+        "country": "India"
+      },
+      "visibility": true,
+      "featured": false,
+      "createdAt": "2025-01-17T08:45:00Z",
+      "updatedAt": "2025-01-18T16:30:00Z"
+    },
+    {
+      "id": "prod_004",
+      "name": "Synthetic Polyester Yarn 1kg",
+      "sku": "SKU-SPY-001",
+      "categoryId": "cat_002",
+      "subCategoryId": "subcat_005",
+      "shortDescription": "High-strength synthetic polyester yarn",
+      "fullDescription": "Premium quality synthetic polyester yarn, ideal for textile manufacturing. High tensile strength and durability. Available in various deniers.",
+      "images": [
+        "/images/products/textiles/yarn-1.jpg",
+        "/images/products/textiles/yarn-2.jpg"
+      ],
+      "thumbnailImage": "/images/products/textiles/yarn-thumb.jpg",
+      "specifications": {
+        "material": "100% Polyester",
+        "weight": "1kg",
+        "denier": "300D",
+        "twist": "S/Z",
+        "strength": "High"
+      },
+      "pricing": {
+        "cost": 8.50,
+        "currency": "USD",
+        "moq": 500,
+        "showPrice": true
+      },
+      "shipping": {
+        "weight": 1,
+        "port": "Port of Nhava Sheva",
+        "shippingCost": 2.00,
+        "shippingTime": "15-18 days",
+        "incoterms": "FOB"
+      },
+      "customs": {
+        "hsCode": "5402.33.00",
+        "country": "India"
+      },
+      "visibility": true,
+      "featured": false,
+      "createdAt": "2025-01-15T12:00:00Z",
+      "updatedAt": "2025-01-20T10:20:00Z"
+    }
+  ]
+}

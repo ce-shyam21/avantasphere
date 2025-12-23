@@ -1,0 +1,18 @@
+{
+  "business": {
+    "name": "AventaSphere",
+    "tagline": "Exporting Excellence",
+    "description": "Leading export-import company specializing in electronics, textiles, and machinery",
+    "email": "info@avantasphere.com",
+    "phone": "+91-98765-43210",
+    "address": "Mumbai, India",
+    "logo": "/images/logos/avantasphere-logo.png"
+  },
+  "frontendSettings": {
+    "showPricing": true,
+    "showShippingInfo": true,
+    "showIncoterms": true,
+    "showMOQ": true,
+    "enableCatalogue": true
+  }
+}

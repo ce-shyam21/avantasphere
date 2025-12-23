@@ -1,0 +1,32 @@
+======================================================================
+/* Mobile First Approach */
+
+/* Small devices (phones) */
+@media (max-width: 640px) {
+  :root {
+    --font-base: 0.875rem;
+    --font-lg: 1rem;
+    --font-xl: 1.125rem;
+    --spacing-lg: 1rem;
+    --spacing-xl: 1.5rem;
+  }
+
+  body {
+    font-size: var(--font-base);
+  }
+}
+
+/* Medium devices (tablets) */
+@media (min-width: 641px) and (max-width: 1024px) {
+  :root {
+    --font-base: 0.9375rem;
+    --font-lg: 1.0625rem;
+  }
+}
+
+/* Large devices (desktops) */
+@media (min-width: 1025px) {
+  body {
+    font-size: var(--font-base);
+  }
+}

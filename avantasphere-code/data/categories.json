@@ -1,0 +1,70 @@
+{
+  "categories": [
+    {
+      "id": "cat_001",
+      "name": "Electronics",
+      "slug": "electronics",
+      "description": "High-quality electronic components and devices",
+      "image": "/images/categories/electronics.jpg",
+      "featured": true,
+      "subCategories": [
+        {
+          "id": "subcat_001",
+          "name": "Mobile Phones",
+          "slug": "mobile-phones"
+        },
+        {
+          "id": "subcat_002",
+          "name": "LED Lights",
+          "slug": "led-lights"
+        },
+        {
+          "id": "subcat_003",
+          "name": "Power Supplies",
+          "slug": "power-supplies"
+        }
+      ],
+      "createdAt": "2025-01-15T10:30:00Z",
+      "updatedAt": "2025-01-15T10:30:00Z"
+    },
+    {
+      "id": "cat_002",
+      "name": "Textiles",
+      "slug": "textiles",
+      "description": "Premium textile products and fabrics",
+      "image": "/images/categories/textiles.jpg",
+      "featured": true,
+      "subCategories": [
+        {
+          "id": "subcat_004",
+          "name": "Cotton Fabric",
+          "slug": "cotton-fabric"
+        },
+        {
+          "id": "subcat_005",
+          "name": "Synthetic Fibers",
+          "slug": "synthetic-fibers"
+        }
+      ],
+      "createdAt": "2025-01-15T10:30:00Z",
+      "updatedAt": "2025-01-15T10:30:00Z"
+    },
+    {
+      "id": "cat_003",
+      "name": "Machinery",
+      "slug": "machinery",
+      "description": "Industrial machinery and equipment",
+      "image": "/images/categories/machinery.jpg",
+      "featured": false,
+      "subCategories": [
+        {
+          "id": "subcat_006",
+          "name": "Heavy Machinery",
+          "slug": "heavy-machinery"
+        }
+      ],
+      "createdAt": "2025-01-15T10:30:00Z",
+      "updatedAt": "2025-01-15T10:30:00Z"
+    }
+  ]
+}
