@@ -19,7 +19,7 @@ async function getCategoryAndProducts(
   category: Category | null;
   products: Product[];
 }> {
-  try {debugger;
+  try {
     const categoriesPath = path.join(
       process.cwd(),
       "data",

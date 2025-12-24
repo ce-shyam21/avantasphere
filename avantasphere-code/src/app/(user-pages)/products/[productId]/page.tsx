@@ -14,7 +14,7 @@ interface ProductDetailPageProps {
 }
 
 async function getProduct(productId: string): Promise<Product | null> {
-  try {debugger;
+  try {
     console.log("Fetching product with ID:", productId);
     const dataPath = path.join(process.cwd(), "data", "products.json");
     const fileContent = readFileSync(dataPath, "utf-8");
@@ -29,7 +29,7 @@ async function getProduct(productId: string): Promise<Product | null> {
 
 export default async function ProductDetailPage({
   params,
-}: ProductDetailPageProps) {debugger;
+}: ProductDetailPageProps) {
   const { productId } = await params;
   const product = await getProduct(productId);
 
