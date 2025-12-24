@@ -1,0 +1,195 @@
+.catalogue-page {
+  min-height: 100vh;
+}
+
+.catalogue-section {
+  padding: var(--spacing-3xl) var(--spacing-lg);
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+  color: white;
+}
+
+.catalogue-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.catalogue-header {
+  text-align: center;
+  margin-bottom: var(--spacing-3xl);
+}
+
+.catalogue-header h1 {
+  font-size: var(--font-4xl);
+  margin-bottom: var(--spacing-md);
+}
+
+.catalogue-header p {
+  font-size: var(--font-lg);
+  opacity: 0.95;
+}
+
+.catalogue-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-3xl);
+  align-items: center;
+}
+
+.catalogue-card {
+  background-color: white;
+  color: var(--dark-color);
+  padding: var(--spacing-3xl);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+}
+
+.catalogue-icon {
+  font-size: 3rem;
+  margin-bottom: var(--spacing-lg);
+}
+
+.catalogue-card h2 {
+  font-size: var(--font-2xl);
+  color: var(--primary-color);
+  margin-bottom: var(--spacing-md);
+}
+
+.catalogue-card p {
+  color: var(--gray-color);
+  margin-bottom: var(--spacing-2xl);
+  line-height: 1.6;
+}
+
+.catalogue-features {
+  margin-bottom: var(--spacing-2xl);
+}
+
+.feature {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+  padding: var(--spacing-sm);
+  background-color: #f8f9fa;
+  border-radius: var(--radius-md);
+}
+
+.feature-icon {
+  color: var(--success-color);
+  font-weight: 700;
+  font-size: var(--font-lg);
+}
+
+.catalogue-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-weight: 600;
+  margin-bottom: var(--spacing-sm);
+  color: var(--dark-color);
+}
+
+.form-group input {
+  padding: var(--spacing-md);
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-md);
+  font-size: var(--font-base);
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+}
+
+.success-message {
+  padding: var(--spacing-md);
+  background-color: var(--success-color);
+  color: white;
+  border-radius: var(--radius-md);
+  font-weight: 500;
+  text-align: center;
+}
+
+.download-btn {
+  padding: var(--spacing-lg) var(--spacing-2xl);
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: var(--radius-lg);
+  font-size: var(--font-lg);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-base);
+}
+
+.download-btn:hover {
+  background-color: var(--secondary-color);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.catalogue-benefits {
+  color: white;
+}
+
+.catalogue-benefits h2 {
+  font-size: var(--font-2xl);
+  margin-bottom: var(--spacing-2xl);
+}
+
+.benefit-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.benefit-item {
+  display: flex;
+  gap: var(--spacing-lg);
+  align-items: flex-start;
+}
+
+.benefit-number {
+  min-width: 50px;
+  width: 50px;
+  height: 50px;
+  background-color: var(--accent-color);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: var(--font-xl);
+}
+
+.benefit-item h3 {
+  margin-bottom: var(--spacing-xs);
+  font-size: var(--font-lg);
+}
+
+.benefit-item p {
+  opacity: 0.9;
+  font-size: var(--font-sm);
+}
+
+@media (max-width: 768px) {
+  .catalogue-content {
+    grid-template-columns: 1fr;
+  }
+
+  .catalogue-card {
+    padding: var(--spacing-2xl);
+  }
+
+  .catalogue-header h1 {
+    font-size: var(--font-2xl);
+  }
+}

@@ -17,6 +17,9 @@ interface ProductCardProps {
 }
 
 export default function ProductCard({ product, productId }: ProductCardProps) {
+  console.log("Rendering ProductCard for:", product.name);
+  console.log("Rendering ProductCard product.id:", product.id);
+  console.log("Rendering ProductCard productId:", productId);
   return (
     <Link href={`/products/${productId}`} className="product-card-link">
       <div className="product-card">

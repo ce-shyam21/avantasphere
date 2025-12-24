@@ -19,7 +19,7 @@ export default function CategoryGrid() {
 
   useEffect(() => {
     const loadCategories = async () => {
-      try {
+      try {debugger;
         const response = await fetch("/api/categories");
         const data = await response.json();
         setCategories(data.categories);

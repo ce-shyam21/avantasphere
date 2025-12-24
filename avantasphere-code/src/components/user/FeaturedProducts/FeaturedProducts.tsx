@@ -21,7 +21,7 @@ export default function FeaturedProducts() {
 
   useEffect(() => {
     const loadProducts = async () => {
-      try {
+      try {debugger;
         const response = await fetch("/api/products");
         const data = await response.json();
         const featured = data.products.filter((p: Product) => p.featured);

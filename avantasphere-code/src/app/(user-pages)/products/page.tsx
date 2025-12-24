@@ -24,7 +24,7 @@ export default function ProductsPage() {
 
   useEffect(() => {
     const loadProducts = async () => {
-      try {
+      try {debugger;
         const response = await fetch("/api/products");
         const data = await response.json();
         setProducts(data.products);

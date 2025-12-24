@@ -13,7 +13,7 @@ export default function Home() {
       {/* Hero Banner */}
       <section className="hero-section">
         <div className="hero-content">
-          <h1 className="hero-title">Exporting Excellence</h1>
+          <h1 className="hero-title">Exporting Excellencess</h1>
           <p className="hero-subtitle">
             Premium Electronics, Textiles & Machinery from India
           </p>

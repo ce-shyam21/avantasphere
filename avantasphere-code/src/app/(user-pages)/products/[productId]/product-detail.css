@@ -68,8 +68,7 @@
   flex-shrink: 0;
 }
 
-.thumbnail:hover,
-.thumbnail.active {
+.thumbnail:hover {
   border-color: var(--primary-color);
   box-shadow: var(--shadow-md);
 }
@@ -204,6 +203,7 @@
   font-weight: 600;
   transition: all var(--transition-base);
   cursor: pointer;
+  border: none;
 }
 
 .btn-inquiry {
@@ -226,13 +226,6 @@
 .btn-download:hover {
   background-color: var(--primary-color);
   color: white;
-}
-
-.loading-page {
-  padding: var(--spacing-3xl);
-  text-align: center;
-  color: var(--gray-color);
-  font-size: var(--font-lg);
 }
 
 @media (max-width: 768px) {

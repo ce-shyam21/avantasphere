@@ -1,83 +1,40 @@
-"use client";
-
-import { useEffect, useState } from "react";
+import { Suspense } from "react";
+import { notFound } from "next/navigation";
 import Navbar from "@/components/shared/Navbar/Navbar";
 import Footer from "@/components/shared/Footer/Footer";
+import { Product } from "@/models";
+import { readFileSync } from "fs";
+import path from "path";
 import "./product-detail.css";
 
-interface Product {
-  id: string;
-  name: string;
-  shortDescription: string;
-  fullDescription: string;
-  images: string[];
-  specifications: Record<string, string | number>;
-  pricing: {
-    cost: number;
-    currency: string;
-    moq: number;
-    showPrice: boolean;
-  };
-  shipping: {
-    weight: number;
-    port: string;
-    shippingCost: number;
-    shippingTime: string;
-    incoterms: string;
-  };
-  customs: {
-    hsCode: string;
-    country: string;
-  };
+interface ProductDetailPageProps {
+  params: Promise<{
+    productId: string;
+  }>;
 }
 
-export default function ProductDetailPage({
-  params,
-}: {
-  params: { productId: string };
-}) {
-  const [product, setProduct] = useState<Product | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [mainImage, setMainImage] = useState("");
-  const [quantity, setQuantity] = useState(100);
-
-  useEffect(() => {
-    const loadProduct = async () => {
-      try {
-        const response = await fetch(`/api/products/${params.productId}`);
-        const data = await response.json();
-        setProduct(data);
-        if (data.images && data.images.length > 0) {
-          setMainImage(data.images[0]);
-        }
-      } catch (error) {
-        console.error("Failed to load product:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    loadProduct();
-  }, [params.productId]);
-
-  if (loading) {
-    return (
-      <main>
-        <Navbar />
-        <div className="loading-page">Loading product details...</div>
-        <Footer />
-      </main>
-    );
+async function getProduct(productId: string): Promise<Product | null> {
+  try {debugger;
+    console.log("Fetching product with ID:", productId);
+    const dataPath = path.join(process.cwd(), "data", "products.json");
+    const fileContent = readFileSync(dataPath, "utf-8");
+    const data = JSON.parse(fileContent);
+    const product = data.products.find((p: Product) => p.id === productId);
+    return product || null;
+  } catch (error) {
+    console.error("Error loading product:", error);
+    return null;
   }
+}
+
+export default async function ProductDetailPage({
+  params,
+}: ProductDetailPageProps) {debugger;
+  const { productId } = await params;
+  const product = await getProduct(productId);
 
   if (!product) {
-    return (
-      <main>
-        <Navbar />
-        <div className="loading-page">Product not found</div>
-        <Footer />
-      </main>
-    );
+    notFound();
   }
 
   return (
@@ -96,11 +53,7 @@ export default function ProductDetailPage({
             {product.images && product.images.length > 1 && (
               <div className="thumbnail-images">
                 {product.images.map((image, index) => (
-                  <div
-                    key={index}
-                    className={`thumbnail ${mainImage === image ? "active" : ""}`}
-                    onClick={() => setMainImage(image)}
-                  >
+                  <div key={index} className="thumbnail">
                     <span>Image {index + 1}</span>
                   </div>
                 ))}

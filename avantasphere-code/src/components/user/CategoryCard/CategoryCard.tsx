@@ -12,6 +12,7 @@ interface CategoryCardProps {
 }
 
 export default function CategoryCard({ category }: CategoryCardProps) {
+  console.log("Rendering CategoryCard for:", category.name);
   return (
     <div className="category-card">
       <div className="category-image-wrapper">
