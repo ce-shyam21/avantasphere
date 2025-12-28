@@ -1,12 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
-import "./navbar.css"
-
+import { useState, useEffect } from "react";
+import { useCart } from "@/hooks/useCart";
+import "./navbar.css";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const { getTotalItems, isLoaded } = useCart();
+  const cartItems = getTotalItems();
 
   return (
     <nav className="navbar">
@@ -35,8 +37,15 @@ export default function Navbar() {
           <Link href="/contact" className="nav-link">
             Contact
           </Link>
-          <Link href="/catalogue" className="nav-link cta-link">
-            Get Catalogue
+          <Link href="/catalogue" className="nav-link">
+            Catalogue
+          </Link>
+          <Link href="/cart" className="nav-link cart-link">
+            <span className="cart-icon">🛒</span>
+            <span>Cart</span>
+            {isLoaded && cartItems > 0 && (
+              <span className="cart-badge">{cartItems}</span>
+            )}
           </Link>
         </div>
       </div>
