@@ -5,6 +5,7 @@ import {
 } from "@/lib/email";
 import { readFileSync, writeFileSync } from "fs";
 import path from "path";
+export const runtime = "nodejs"; // 🔥 REQUIRED
 
 export async function POST(request: Request) {
   console.log("=== CONTACT FORM STARTED ===");
@@ -28,21 +29,10 @@ export async function POST(request: Request) {
 
     // Save to database (JSON file)
     const inquiriesPath = path.join(process.cwd(), "data", "inquiries.json");
-    let inquiriesData: {
-      inquiries: Array<{
-        id: string;
-        name: string;
-        email: string;
-        company: string;
-        phone: string;
-        message: string;
-        type: string;
-        status: string;
-        createdAt: string;
-      }>;
-    } = { inquiries: [] };
+    let inquiriesData = { inquiries: [] as unknown[] };
+    const isVercel = process.env.VERCEL === "1";
 
-    if (!process.env.VERCEL) {
+    if (!isVercel) {
       try {
         const content = readFileSync(inquiriesPath, "utf-8");
         inquiriesData = JSON.parse(content);
@@ -64,8 +54,9 @@ export async function POST(request: Request) {
       status: "pending",
       createdAt: new Date().toISOString(),
     };
+    inquiriesData.inquiries.push(newInquiry);
 
-    if (!process.env.VERCEL) {
+    if (!isVercel) {
       writeFileSync(inquiriesPath, JSON.stringify(inquiriesData, null, 2));
       console.log("✅ Contact saved to JSON:", newInquiry.id);
     } else {
