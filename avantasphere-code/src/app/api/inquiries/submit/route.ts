@@ -10,7 +10,7 @@ export async function POST(request: Request) {
       "data",
       "inquiries.json"
     );
-    let inquiriesData = { inquiries: [] };
+    let inquiriesData: { inquiries: unknown[] } = { inquiries: [] };
 
     try {
       const content = readFileSync(inquiriesPath, "utf-8");

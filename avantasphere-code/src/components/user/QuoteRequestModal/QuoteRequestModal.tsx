@@ -52,7 +52,7 @@ export default function QuoteRequestModal({
           ...formData,
           productName,
           type,
-          quantity: parseInt(formData.quantity),
+          quantity: formData.quantity.toString(),
         }),
       });
 
@@ -108,7 +108,7 @@ export default function QuoteRequestModal({
             <span className="success-icon">✅</span>
             <h3>Request Submitted Successfully!</h3>
             <p>
-              Thank you! We've sent a confirmation email to {formData.customerEmail}.
+              Thank you! We&apos;ve sent a confirmation email to {formData.customerEmail}.
               Our team will get back to you within 24 hours.
             </p>
           </div>

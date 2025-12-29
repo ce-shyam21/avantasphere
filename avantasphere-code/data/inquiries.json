@@ -82,6 +82,19 @@
       "type": "contact",
       "status": "pending",
       "createdAt": "2025-12-29T16:48:09.472Z"
+    },
+    {
+      "id": "inq_1767028502752",
+      "customerName": "Shyam Mangroliya",
+      "customerEmail": "ce.shyam21@gmail.com",
+      "companyName": "India",
+      "phone": "+918799572988",
+      "productName": "Power Supply Unit 500W",
+      "quantity": "1",
+      "message": "fdafda",
+      "type": "contact",
+      "status": "pending",
+      "createdAt": "2025-12-29T17:15:02.752Z"
     }
   ]
 }

@@ -6,7 +6,7 @@ export async function POST(request: Request) {
     const { email } = await request.json();
 
     const usersPath = path.join(process.cwd(), "data", "users.json");
-    let usersData = { users: [] };
+    let usersData: { users: Array<{ id: string; email: string; requestedAt: string; catalogueSentAt: string; catalogueVersion: string }> } = { users: [] };
 
     try {
       const content = readFileSync(usersPath, "utf-8");

@@ -24,7 +24,17 @@ export async function POST(request: Request) {
 
     // Save to database (JSON file)
     const inquiriesPath = path.join(process.cwd(), "data", "inquiries.json");
-    let inquiriesData = { inquiries: [] };
+    let inquiriesData: { inquiries: Array<{
+      id: string;
+      name: string;
+      email: string;
+      company: string;
+      phone: string;
+      message: string;
+      type: string;
+      status: string;
+      createdAt: string;
+    }> } = { inquiries: [] };
 
     try {
       const content = readFileSync(inquiriesPath, "utf-8");
