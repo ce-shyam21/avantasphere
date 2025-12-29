@@ -1,4 +1,3 @@
-import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import Navbar from "@/components/shared/Navbar/Navbar";
 import Footer from "@/components/shared/Footer/Footer";
@@ -8,7 +7,7 @@ import ProductDetailClient from "./ProductDetailClient";
 import { Product } from "@/models";
 import { readFileSync } from "fs";
 import path from "path";
-import "./product-detail.css";
+import "./page.css";
 
 interface ProductDetailPageProps {
   params: Promise<{
@@ -51,9 +50,13 @@ export default async function ProductDetailPage({
         ]}
       />
 
-      <ProductDetailClient product={product} />
+      <section className="product-detail-wrapper">
+        <ProductDetailClient product={product} />
+      </section>
 
-      <RelatedProducts categoryId={product.categoryId} currentProductId={productId} />
+      <section className="related-products-wrapper">
+        <RelatedProducts categoryId={product.categoryId} currentProductId={productId} />
+      </section>
 
       <Footer />
     </main>

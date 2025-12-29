@@ -1,18 +1,49 @@
 .related-products {
-  margin-top: var(--spacing-3xl);
-  padding-top: var(--spacing-3xl);
-  border-top: 1px solid var(--border-color);
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.related-products-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: var(--spacing-3xl) var(--spacing-lg);
+  width: 100%;
 }
 
 .related-products h2 {
   font-size: var(--font-2xl);
-  color: var(--primary-color);
+  color: #0066cc;
+  margin-bottom: var(--spacing-sm);
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+
+.related-products > p {
+  color: #999;
+  font-size: var(--font-base);
   margin-bottom: var(--spacing-2xl);
 }
 
 .related-products-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: var(--spacing-2xl);
+  width: 100%;
   animation: fadeIn 0.8s ease-out;
+}
+
+@media (max-width: 768px) {
+  .related-products-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: var(--spacing-lg);
+  }
+
+  .related-products-container {
+    padding: var(--spacing-2xl) var(--spacing-lg);
+  }
+
+  .related-products h2 {
+    font-size: var(--font-xl);
+  }
 }

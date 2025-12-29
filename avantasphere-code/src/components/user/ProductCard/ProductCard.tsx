@@ -1,6 +1,7 @@
 "use client";
 
-import Link from "next/link";
+import { useState } from "react";
+import ProductQuickView from "./ProductQuickView";
 import "./product-card.css";
 
 interface ProductCardProps {
@@ -17,15 +18,14 @@ interface ProductCardProps {
 }
 
 export default function ProductCard({ product, productId }: ProductCardProps) {
-  console.log("Rendering ProductCard for:", product.name);
-  console.log("Rendering ProductCard product.id:", product.id);
-  console.log("Rendering ProductCard productId:", productId);
+  const [showQuickView, setShowQuickView] = useState(false);
+
   return (
-    <Link href={`/products/${productId}`} className="product-card-link">
-      <div className="product-card">
+    <>
+      <div className="product-card" onClick={() => setShowQuickView(true)}>
         <div className="product-image-wrapper">
           <div className="product-image-placeholder">
-            <span className="image-icon">🛍️</span>
+            <span className="image-icon">📦</span>
           </div>
         </div>
         <div className="product-content">
@@ -33,12 +33,18 @@ export default function ProductCard({ product, productId }: ProductCardProps) {
           <p className="product-description">{product.shortDescription}</p>
           <div className="product-footer">
             <span className="product-price">
-              ${product.pricing.cost.toFixed(2)} {product.pricing.currency}
+              ${product.pricing.cost.toFixed(2)}
             </span>
-            <button className="view-btn">View</button>
           </div>
         </div>
       </div>
-    </Link>
+
+      {showQuickView && (
+        <ProductQuickView
+          productId={productId}
+          onClose={() => setShowQuickView(false)}
+        />
+      )}
+    </>
   );
 }

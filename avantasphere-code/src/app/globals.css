@@ -14,8 +14,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #f8f9fa;
-  color: #333;
+  background-color: var(--bg-light);
+  color: var(--dark-color);
 }
 
 code {
@@ -34,15 +34,36 @@ button {
   font-family: inherit;
 }
 
-input, textarea {
+input, textarea, select {
   font-family: inherit;
 }
 
 img {
   max-width: 100%;
   height: auto;
+  display: block;
 }
 
 ul, ol {
   list-style: none;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

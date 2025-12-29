@@ -2,18 +2,9 @@
 
 import { useEffect, useState } from "react";
 import ProductCard from "../ProductCard/ProductCard";
+import LoadingSkeleton from "@/components/shared/Loading/LoadingSkeleton";
+import { Product } from "@/models";
 import "./featured-products.css";
-
-interface Product {
-  id: string;
-  name: string;
-  shortDescription: string;
-  thumbnailImage: string;
-  pricing: {
-    cost: number;
-    currency: string;
-  };
-}
 
 export default function FeaturedProducts() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -37,13 +28,17 @@ export default function FeaturedProducts() {
   }, []);
 
   if (loading) {
-    return <div className="loading">Loading products...</div>;
+    return <LoadingSkeleton type="product-card" count={4} />;
   }
 
   return (
     <div className="featured-products">
       {products.map((product) => (
-        <ProductCard key={product.id} product={product} productId={product.id} />
+        <ProductCard
+          key={product.id}
+          product={product}
+          productId={product.id}
+        />
       ))}
     </div>
   );

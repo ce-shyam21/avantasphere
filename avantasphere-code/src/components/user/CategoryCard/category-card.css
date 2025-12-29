@@ -17,7 +17,7 @@
 .category-image-wrapper {
   width: 100%;
   height: 150px;
-  background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+  background: linear-gradient(135deg, #e6f2ff 0%, #cce5ff 100%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -32,7 +32,7 @@
   align-items: center;
   justify-content: center;
   font-size: 3rem;
-  background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+  background: linear-gradient(135deg, #e6f2ff 0%, #cce5ff 100%);
   transition: transform var(--transition-base);
 }
 
@@ -52,15 +52,15 @@
 }
 
 .category-name {
-  font-size: var(--font-xl);
-  font-weight: 600;
-  color: var(--primary-color);
+  font-size: var(--font-lg);
+  font-weight: 700;
+  color: #0066cc;
   margin-bottom: var(--spacing-sm);
 }
 
 .category-description {
   font-size: var(--font-sm);
-  color: var(--gray-color);
+  color: #666666;
   line-height: 1.5;
   flex: 1;
   margin-bottom: var(--spacing-md);
@@ -73,12 +73,12 @@
 }
 
 .explore-link {
-  color: var(--secondary-color);
-  font-weight: 600;
+  color: #0099d8;
+  font-weight: 700;
   font-size: var(--font-sm);
   transition: all var(--transition-base);
 }
 
 .category-card:hover .explore-link {
-  color: var(--primary-color);
+  color: #0066cc;
 }

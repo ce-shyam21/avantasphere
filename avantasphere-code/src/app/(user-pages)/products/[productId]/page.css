@@ -1,0 +1,26 @@
+.product-detail-page {
+  min-height: 100vh;
+  background-color: #f5f9ff;
+}
+
+.product-detail-wrapper {
+  background: white;
+  padding: var(--spacing-3xl) var(--spacing-lg);
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.related-products-wrapper {
+  background: #f5f9ff;
+  padding: var(--spacing-4xl) var(--spacing-lg);
+  border-top: 2px solid #e0e0e0;
+}
+
+@media (max-width: 768px) {
+  .product-detail-wrapper {
+    padding: var(--spacing-2xl) var(--spacing-lg);
+  }
+
+  .related-products-wrapper {
+    padding: var(--spacing-2xl) var(--spacing-lg);
+  }
+}

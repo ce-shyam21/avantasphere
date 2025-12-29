@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import ProductCard from "../ProductCard/ProductCard";
+import LoadingSkeleton from "@/components/shared/Loading/LoadingSkeleton";
 import { Product } from "@/models";
 import "./related-products.css";
 
@@ -37,20 +38,23 @@ export default function RelatedProducts({
     loadProducts();
   }, [categoryId, currentProductId]);
 
-  if (loading) return <div className="loading">Loading related products...</div>;
+  if (loading) return <LoadingSkeleton type="product-card" count={4} />;
   if (products.length === 0) return null;
 
   return (
     <section className="related-products">
-      <h2>Related Products</h2>
-      <div className="related-products-grid">
-        {products.map((product) => (
-          <ProductCard
-            key={product.id}
-            product={product}
-            productId={product.id}
-          />
-        ))}
+      <div className="related-products-container">
+        <h2>🔗 Related Products</h2>
+        <p>You might also be interested in</p>
+        <div className="related-products-grid">
+          {products.map((product) => (
+            <ProductCard
+              key={product.id}
+              product={product}
+              productId={product.id}
+            />
+          ))}
+        </div>
       </div>
     </section>
   );

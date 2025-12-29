@@ -12,7 +12,6 @@ interface CategoryCardProps {
 }
 
 export default function CategoryCard({ category }: CategoryCardProps) {
-  console.log("Rendering CategoryCard for:", category.name);
   return (
     <div className="category-card">
       <div className="category-image-wrapper">
@@ -24,7 +23,7 @@ export default function CategoryCard({ category }: CategoryCardProps) {
         <h3 className="category-name">{category.name}</h3>
         <p className="category-description">{category.description}</p>
         <div className="category-footer">
-          <span className="explore-link">Explore →</span>
+          <span className="explore-link">Browse →</span>
         </div>
       </div>
     </div>
