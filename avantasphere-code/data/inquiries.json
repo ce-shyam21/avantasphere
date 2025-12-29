@@ -1,3 +1,87 @@
 {
-  "inquiries": []
+  "inquiries": [
+    {
+      "id": "inq_1767025123294",
+      "customerName": "Shyam Mangroliya",
+      "customerEmail": "am8cone23@gmail.com",
+      "companyName": "India",
+      "phone": "+918799572988",
+      "productName": "Synthetic Polyester Yarn 1kg",
+      "quantity": 1,
+      "message": "test",
+      "type": "quote",
+      "status": "pending",
+      "createdAt": "2025-12-29T16:18:43.294Z"
+    },
+    {
+      "id": "inq_1767025481004",
+      "name": "dfg",
+      "email": "am8cone23@gmail.com",
+      "company": "India",
+      "phone": "08799572988",
+      "message": "fgsf",
+      "status": "pending",
+      "createdAt": "2025-12-29T16:24:41.004Z"
+    },
+    {
+      "id": "inq_1767025519968",
+      "customerName": "Shyam Mangroliya",
+      "customerEmail": "am8cone23@gmail.com",
+      "companyName": "India",
+      "phone": "+918799572988",
+      "productName": "Industrial LED Bulbs 10W",
+      "quantity": 1,
+      "message": "adfadfgadgad",
+      "type": "quote",
+      "status": "pending",
+      "createdAt": "2025-12-29T16:25:19.968Z"
+    },
+    {
+      "id": "inq_1767025986453",
+      "customerName": "Shyam Mangroliya",
+      "customerEmail": "am8cone23@gmail.com",
+      "companyName": "India",
+      "phone": "+918799572988",
+      "productName": "Industrial LED Bulbs 10W",
+      "quantity": 1,
+      "message": "fdaeqwtqette",
+      "type": "quote",
+      "status": "pending",
+      "createdAt": "2025-12-29T16:33:06.453Z"
+    },
+    {
+      "id": "inq_1767026181930",
+      "customerName": "Shyam Mangroliya",
+      "customerEmail": "am8cone23@gmail.com",
+      "companyName": "India",
+      "phone": "+918799572988",
+      "productName": "Industrial LED Bulbs 10W",
+      "quantity": 1,
+      "message": "dfgsfgfdsgs",
+      "type": "quote",
+      "status": "pending",
+      "createdAt": "2025-12-29T16:36:21.930Z"
+    },
+    {
+      "id": "inq_1767026581471",
+      "name": "Shyam Mangroliya",
+      "email": "ce.shyam21@gmail.com",
+      "company": "India",
+      "phone": "08799572988",
+      "message": "gwrtgw",
+      "status": "pending",
+      "createdAt": "2025-12-29T16:43:01.471Z"
+    },
+    {
+      "id": "contact_1767026889472",
+      "name": "Shyam Mangroliya",
+      "email": "am8cone123@gmail.com",
+      "company": "India",
+      "phone": "08799572988",
+      "message": "fafafeasfeqwafaqewdsfeqwafrqereqre",
+      "type": "contact",
+      "status": "pending",
+      "createdAt": "2025-12-29T16:48:09.472Z"
+    }
+  ]
 }

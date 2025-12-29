@@ -15,6 +15,8 @@ export default function ContactPage() {
   });
 
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -28,9 +30,11 @@ export default function ContactPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true);
+    setError("");
 
     try {
-      const response = await fetch("/api/inquiries/submit", {
+      const response = await fetch("/api/inquiries/contact-form", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -38,19 +42,30 @@ export default function ContactPage() {
         body: JSON.stringify(formData),
       });
 
-      if (response.ok) {
-        setSubmitted(true);
-        setFormData({
-          name: "",
-          email: "",
-          company: "",
-          phone: "",
-          message: "",
-        });
-        setTimeout(() => setSubmitted(false), 5000);
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Failed to submit form");
       }
-    } catch (error) {
-      console.error("Error submitting form:", error);
+
+      setSubmitted(true);
+      setFormData({
+        name: "",
+        email: "",
+        company: "",
+        phone: "",
+        message: "",
+      });
+
+      // Hide success message after 5 seconds
+      setTimeout(() => setSubmitted(false), 5000);
+    } catch (err) {
+      setError(
+        err instanceof Error ? err.message : "Something went wrong. Please try again."
+      );
+      console.error("Error submitting form:", err);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -69,74 +84,105 @@ export default function ContactPage() {
             {/* Contact Form */}
             <div className="contact-form-wrapper">
               <h2>Send us a Message</h2>
+              
               {submitted && (
                 <div className="success-message">
-                  ✓ Your message has been sent successfully. We&apos;ll get back to you soon!
+                  <span className="success-icon">✓</span>
+                  <h3>Message Sent Successfully!</h3>
+                  <p>Thank you for contacting us. We'll get back to you within 24 hours.</p>
                 </div>
               )}
-              <form onSubmit={handleSubmit} className="contact-form">
-                <div className="form-group">
-                  <label htmlFor="name">Full Name *</label>
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    required
-                  />
-                </div>
 
-                <div className="form-group">
-                  <label htmlFor="email">Email Address *</label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                  />
+              {error && (
+                <div className="error-message">
+                  <span className="error-icon">✗</span>
+                  <p>{error}</p>
                 </div>
+              )}
 
-                <div className="form-group">
-                  <label htmlFor="company">Company Name</label>
-                  <input
-                    type="text"
-                    id="company"
-                    name="company"
-                    value={formData.company}
-                    onChange={handleChange}
-                  />
-                </div>
+              {!submitted && (
+                <form onSubmit={handleSubmit} className="contact-form">
+                  <div className="form-row">
+                    <div className="form-group">
+                      <label htmlFor="name">Full Name *</label>
+                      <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        value={formData.name}
+                        onChange={handleChange}
+                        required
+                        placeholder="John Doe"
+                        disabled={loading}
+                      />
+                    </div>
 
-                <div className="form-group">
-                  <label htmlFor="phone">Phone Number</label>
-                  <input
-                    type="tel"
-                    id="phone"
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleChange}
-                  />
-                </div>
+                    <div className="form-group">
+                      <label htmlFor="email">Email Address *</label>
+                      <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        required
+                        placeholder="john@example.com"
+                        disabled={loading}
+                      />
+                    </div>
+                  </div>
 
-                <div className="form-group full-width">
-                  <label htmlFor="message">Message *</label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    value={formData.message}
-                    onChange={handleChange}
-                    rows={5}
-                    required
-                  ></textarea>
-                </div>
+                  <div className="form-row">
+                    <div className="form-group">
+                      <label htmlFor="company">Company Name</label>
+                      <input
+                        type="text"
+                        id="company"
+                        name="company"
+                        value={formData.company}
+                        onChange={handleChange}
+                        placeholder="Your Company"
+                        disabled={loading}
+                      />
+                    </div>
 
-                <button type="submit" className="submit-btn">
-                  Send Message
-                </button>
-              </form>
+                    <div className="form-group">
+                      <label htmlFor="phone">Phone Number</label>
+                      <input
+                        type="tel"
+                        id="phone"
+                        name="phone"
+                        value={formData.phone}
+                        onChange={handleChange}
+                        placeholder="+1-234-567-8900"
+                        disabled={loading}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="form-group full-width">
+                    <label htmlFor="message">Message *</label>
+                    <textarea
+                      id="message"
+                      name="message"
+                      value={formData.message}
+                      onChange={handleChange}
+                      rows={5}
+                      required
+                      placeholder="Tell us how we can help..."
+                      disabled={loading}
+                    ></textarea>
+                  </div>
+
+                  <button 
+                    type="submit" 
+                    className="submit-btn"
+                    disabled={loading}
+                  >
+                    {loading ? "Sending..." : "Send Message"}
+                  </button>
+                </form>
+              )}
             </div>
 
             {/* Contact Info */}
