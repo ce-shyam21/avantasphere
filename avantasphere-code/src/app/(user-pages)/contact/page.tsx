@@ -89,7 +89,7 @@ export default function ContactPage() {
                 <div className="success-message">
                   <span className="success-icon">✓</span>
                   <h3>Message Sent Successfully!</h3>
-                  <p>Thank you for contacting us. We'll get back to you within 24 hours.</p>
+                  <p>Thank you for contacting us. We&apos;ll get back to you within 24 hours.</p>
                 </div>
               )}
 
