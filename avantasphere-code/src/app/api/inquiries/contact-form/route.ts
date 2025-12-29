@@ -1,10 +1,14 @@
-import { sendEmail, getContactEmailTemplate, getAdminContactTemplate } from "@/lib/email";
+import {
+  sendEmail,
+  getContactEmailTemplate,
+  getAdminContactTemplate,
+} from "@/lib/email";
 import { readFileSync, writeFileSync } from "fs";
 import path from "path";
 
 export async function POST(request: Request) {
   console.log("=== CONTACT FORM STARTED ===");
-  
+
   try {
     const body = await request.json();
     console.log("Contact form received:", body);
@@ -24,23 +28,29 @@ export async function POST(request: Request) {
 
     // Save to database (JSON file)
     const inquiriesPath = path.join(process.cwd(), "data", "inquiries.json");
-    let inquiriesData: { inquiries: Array<{
-      id: string;
-      name: string;
-      email: string;
-      company: string;
-      phone: string;
-      message: string;
-      type: string;
-      status: string;
-      createdAt: string;
-    }> } = { inquiries: [] };
+    let inquiriesData: {
+      inquiries: Array<{
+        id: string;
+        name: string;
+        email: string;
+        company: string;
+        phone: string;
+        message: string;
+        type: string;
+        status: string;
+        createdAt: string;
+      }>;
+    } = { inquiries: [] };
 
-    try {
-      const content = readFileSync(inquiriesPath, "utf-8");
-      inquiriesData = JSON.parse(content);
-    } catch {
-      console.log("Creating new inquiries.json file");
+    if (!process.env.VERCEL) {
+      try {
+        const content = readFileSync(inquiriesPath, "utf-8");
+        inquiriesData = JSON.parse(content);
+      } catch {
+        console.log("Creating new inquiries.json file");
+      }
+    } else {
+      console.log("⚠️ JSON read skipped on Vercel");
     }
 
     const newInquiry = {
@@ -55,9 +65,12 @@ export async function POST(request: Request) {
       createdAt: new Date().toISOString(),
     };
 
-    inquiriesData.inquiries.push(newInquiry);
-    writeFileSync(inquiriesPath, JSON.stringify(inquiriesData, null, 2));
-    console.log("✅ Contact saved to JSON:", newInquiry.id);
+    if (!process.env.VERCEL) {
+      writeFileSync(inquiriesPath, JSON.stringify(inquiriesData, null, 2));
+      console.log("✅ Contact saved to JSON:", newInquiry.id);
+    } else {
+      console.log("⚠️ Skipped JSON write on Vercel");
+    }
 
     // Send email to customer
     console.log("\n📧 Attempting to send customer email...");
