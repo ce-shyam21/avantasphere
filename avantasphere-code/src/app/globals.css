@@ -1,11 +1,3 @@
-/* ============================================================================
-   COMPLETE GLASSMORPHISM THEME - PRODUCTION READY
-   ============================================================================ */
-
-/* ============================================================================
-   1. GLOBAL STYLES (globals.css)
-   ============================================================================ */
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -44,6 +36,10 @@
   --glass-blur-tablet: 20px;
   --glass-blur-desktop: 28px;
   
+  --glass-opacity-low: 0.45;
+  --glass-opacity-medium: 0.65;
+  --glass-opacity-high: 0.88;
+  
   --color-primary: #0066cc;
   --color-primary-light: #0099d8;
   --color-bg-light: #f5f9ff;
@@ -67,7 +63,7 @@
 
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  background: linear-gradient(135deg, #f0f7ff 0%, #e6f2ff 25%, #d9edff 50%, #cce5ff 75%, #b3d9ff 100%);
+  background: linear-gradient(135deg, #e6f2ff 0%, #cce5ff 25%, #b3d9ff 50%, #99ccff 75%, #80bfff 100%);
   background-attachment: fixed;
   min-height: 100vh;
   color: var(--color-text);
@@ -84,18 +80,34 @@ body::before {
   left: 0;
   right: 0;
   bottom: 0;
-  background: 
-    radial-gradient(circle at 15% 20%, rgba(0, 153, 216, 0.08) 0%, transparent 50%),
-    radial-gradient(circle at 85% 80%, rgba(0, 102, 204, 0.06) 0%, transparent 50%),
-    radial-gradient(circle at 50% 50%, rgba(204, 229, 255, 0.1) 0%, transparent 50%);
+  background: rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(80px) saturate(180%);
+  -webkit-backdrop-filter: blur(80px) saturate(180%);
   pointer-events: none;
   z-index: 0;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.15) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(0, 153, 216, 0.08) 0%, transparent 50%),
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.02) 0px, rgba(255, 255, 255, 0.02) 1px, transparent 1px, transparent 80px),
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.015) 0px, rgba(255, 255, 255, 0.015) 1px, transparent 1px, transparent 80px);
+  pointer-events: none;
+  z-index: 1;
   animation: pulse 20s ease-in-out infinite;
 }
 
-/* ============================================================================
-   GLASS UTILITY CLASSES
-   ============================================================================ */
+@keyframes pulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.6; }
+}
 
 .glass {
   background: rgba(255, 255, 255, 0.75);
@@ -204,6 +216,38 @@ body::before {
   background: rgba(255, 255, 255, 0.98);
 }
 
+.glass-section {
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 
+    0 12px 40px rgba(0, 102, 204, 0.08),
+    inset 0 1px 2px rgba(255, 255, 255, 0.5);
+  position: relative;
+  overflow: hidden;
+}
+
+.glass-section::before {
+  content: '';
+  position: absolute;
+  top: -100%;
+  left: -10%;
+  width: 120%;
+  height: 100%;
+  background: linear-gradient(160deg, transparent 0%, rgba(255, 255, 255, 0.4) 50%, transparent 100%);
+  transform: skewY(-3deg);
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+  opacity: 0;
+  z-index: 1;
+}
+
+.glass-section:hover::before {
+  top: 100%;
+  opacity: 1;
+}
+
 .glass-hover-sweep {
   position: relative;
   overflow: hidden;
@@ -236,17 +280,15 @@ body::before {
   opacity: 1;
 }
 
-/* ============================================================================
-   MOBILE OPTIMIZATIONS
-   ============================================================================ */
-
 @media (max-width: 767px) {
-  .glass, .glass-card {
+  .glass, .glass-card, .glass-section {
     backdrop-filter: blur(12px) saturate(150%);
     -webkit-backdrop-filter: blur(12px) saturate(150%);
   }
   
-  .glass-card::before {
+  .glass-card::before,
+  .glass-section::before,
+  .glass-hover-sweep::before {
     transition: all 0.4s ease;
   }
   
@@ -262,8 +304,20 @@ body::before {
     transition: all 0.3s ease;
   }
   
+  .glass-section:active::before {
+    top: 100%;
+    opacity: 1;
+    transition: all 0.3s ease;
+  }
+  
   .glass-btn:active::after {
     top: 100%;
+    transition: all 0.3s ease;
+  }
+  
+  .glass-hover-sweep:active::before {
+    top: 100%;
+    opacity: 1;
     transition: all 0.3s ease;
   }
   
