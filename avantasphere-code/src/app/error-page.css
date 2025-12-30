@@ -93,277 +93,323 @@
   font-weight: 900;
   line-height: 1;
   margin-bottom: var(--spacing-xl);
-  letter-spacing: 2rem;
   position: relative;
   z-index: 1;
-  display: flex;
-  justify-content: center;
+  display: inline-flex;
   align-items: center;
-  gap: 0;
+  justify-content: center;
+  gap: clamp(1rem, 3vw, 2rem);
   height: clamp(6rem, 15vw, 10rem);
   perspective: 1000px;
 }
 
-.error-code::before {
-  content: '4';
+.digit-4-left,
+.digit-4-right {
   color: var(--color-primary);
   text-shadow: 0 4px 20px rgba(0, 102, 204, 0.3);
-  animation: none;
+  display: inline-block;
 }
 
-.error-code::after {
-  content: '4';
-  color: var(--color-primary);
-  text-shadow: 0 4px 20px rgba(0, 102, 204, 0.3);
-  animation: none;
-}
-
-/* Middle animated zero with glass break effect */
-.error-code {
+.digit-0-container {
   position: relative;
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+}
+
+.digit-0-whole {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-primary);
+  text-shadow: 0 4px 20px rgba(0, 102, 204, 0.3);
+  animation: zeroFall 5s ease-in-out infinite;
 }
 
 @keyframes zeroFall {
   0% {
-    transform: translateY(-200%) scale(1) rotateX(0deg);
+    transform: translateY(-300%) scale(0.8);
     opacity: 0;
+    filter: blur(4px);
   }
-  15% {
-    transform: translateY(0) scale(1) rotateX(0deg);
+  10% {
+    transform: translateY(-150%) scale(0.9);
+    opacity: 0.5;
+    filter: blur(2px);
+  }
+  18% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+    filter: blur(0px);
+  }
+  40% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+    filter: blur(0px);
+  }
+  42% {
+    transform: translateY(0) scale(1.02);
     opacity: 1;
   }
-  45% {
-    transform: translateY(0) scale(1) rotateX(0deg);
+  44% {
+    transform: translateY(0) scale(0.98);
     opacity: 1;
   }
-  50% {
-    transform: translateY(0) scale(1.05) rotateX(0deg);
-    opacity: 1;
-  }
-  52% {
-    transform: translateY(0) scale(0.95) rotateX(5deg);
-    opacity: 1;
-  }
-  70% {
-    transform: translateY(0) scale(1) rotateX(0deg);
-    opacity: 1;
-  }
-  85% {
-    transform: translateY(0) scale(1) rotateX(0deg);
-    opacity: 1;
+  46% {
+    opacity: 0;
+    transform: translateY(0) scale(1);
   }
   100% {
-    transform: translateY(-200%) scale(1) rotateX(0deg);
     opacity: 0;
+    transform: translateY(0) scale(1);
   }
 }
 
+.digit-0-shard {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-primary);
+  text-shadow: 0 4px 20px rgba(0, 102, 204, 0.3);
+  opacity: 0;
+}
+
+.digit-0-shard-tl {
+  animation: shardTopLeft 5s ease-in-out infinite;
+}
+
+.digit-0-shard-tr {
+  animation: shardTopRight 5s ease-in-out infinite;
+}
+
+.digit-0-shard-bl {
+  animation: shardBottomLeft 5s ease-in-out infinite;
+}
+
+.digit-0-shard-br {
+  animation: shardBottomRight 5s ease-in-out infinite;
+}
+
 @keyframes shardTopLeft {
-  0%, 45% {
+  0%, 44% {
     opacity: 0;
     transform: translate(0, 0) rotate(0deg) scale(1);
     clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+    filter: blur(0px) brightness(1);
   }
-  50% {
+  46% {
     opacity: 1;
-    clip-path: polygon(0% 0%, 60% 0%, 50% 50%, 0% 100%);
+    clip-path: polygon(0% 0%, 55% 0%, 45% 55%, 0% 100%);
+    transform: translate(0, 0) rotate(0deg) scale(1);
+    filter: blur(0px) brightness(1);
+  }
+  48% {
+    transform: translate(-15px, -20px) rotate(-15deg) scale(0.98);
+    opacity: 0.95;
+    filter: blur(0.5px) brightness(1.2);
   }
   52% {
-    transform: translate(-30px, -40px) rotate(-25deg) scale(0.95);
+    transform: translate(-40px, -50px) rotate(-35deg) scale(0.92);
     opacity: 0.8;
-    filter: blur(1px) brightness(1.3);
+    filter: blur(1px) brightness(1.4);
   }
-  55% {
-    transform: translate(-50px, -70px) rotate(-45deg) scale(0.85);
+  58% {
+    transform: translate(-80px, -100px) rotate(-60deg) scale(0.8);
     opacity: 0.5;
-    filter: blur(2px) brightness(1.5);
-  }
-  60% {
-    transform: translate(-70px, -100px) rotate(-65deg) scale(0.7);
-    opacity: 0.2;
-    filter: blur(3px) brightness(1.8);
+    filter: blur(2px) brightness(1.6);
   }
   65% {
+    transform: translate(-140px, -180px) rotate(-90deg) scale(0.6);
+    opacity: 0.2;
+    filter: blur(4px) brightness(1.8);
+  }
+  75% {
     opacity: 0;
-    transform: translate(-80px, -120px) rotate(-75deg) scale(0.5);
+    transform: translate(-200px, -250px) rotate(-120deg) scale(0.3);
+    filter: blur(6px) brightness(2);
   }
-  66% {
-    opacity: 0;
-    transform: translate(0, 0) rotate(0deg) scale(1);
-    clip-path: polygon(0% 0%, 60% 0%, 50% 50%, 0% 100%);
-  }
-  70% {
-    opacity: 1;
-    transform: translate(0, 0) rotate(0deg) scale(1);
-    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
-  }
-  85%, 100% {
+  100% {
     opacity: 0;
   }
 }
 
 @keyframes shardTopRight {
-  0%, 45% {
+  0%, 44% {
     opacity: 0;
     transform: translate(0, 0) rotate(0deg) scale(1);
     clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+    filter: blur(0px) brightness(1);
   }
-  50% {
+  46% {
     opacity: 1;
-    clip-path: polygon(40% 0%, 100% 0%, 100% 100%, 50% 50%);
+    clip-path: polygon(45% 0%, 100% 0%, 100% 100%, 55% 55%);
+    transform: translate(0, 0) rotate(0deg) scale(1);
+    filter: blur(0px) brightness(1);
+  }
+  48% {
+    transform: translate(15px, -20px) rotate(15deg) scale(0.98);
+    opacity: 0.95;
+    filter: blur(0.5px) brightness(1.2);
   }
   52% {
-    transform: translate(30px, -40px) rotate(25deg) scale(0.95);
+    transform: translate(40px, -50px) rotate(35deg) scale(0.92);
     opacity: 0.8;
-    filter: blur(1px) brightness(1.3);
+    filter: blur(1px) brightness(1.4);
   }
-  55% {
-    transform: translate(50px, -70px) rotate(45deg) scale(0.85);
+  58% {
+    transform: translate(80px, -100px) rotate(60deg) scale(0.8);
     opacity: 0.5;
-    filter: blur(2px) brightness(1.5);
-  }
-  60% {
-    transform: translate(70px, -100px) rotate(65deg) scale(0.7);
-    opacity: 0.2;
-    filter: blur(3px) brightness(1.8);
+    filter: blur(2px) brightness(1.6);
   }
   65% {
+    transform: translate(140px, -180px) rotate(90deg) scale(0.6);
+    opacity: 0.2;
+    filter: blur(4px) brightness(1.8);
+  }
+  75% {
     opacity: 0;
-    transform: translate(80px, -120px) rotate(75deg) scale(0.5);
+    transform: translate(200px, -250px) rotate(120deg) scale(0.3);
+    filter: blur(6px) brightness(2);
   }
-  66% {
-    opacity: 0;
-    transform: translate(0, 0) rotate(0deg) scale(1);
-    clip-path: polygon(40% 0%, 100% 0%, 100% 100%, 50% 50%);
-  }
-  70% {
-    opacity: 1;
-    transform: translate(0, 0) rotate(0deg) scale(1);
-    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
-  }
-  85%, 100% {
+  100% {
     opacity: 0;
   }
 }
 
 @keyframes shardBottomLeft {
-  0%, 45% {
+  0%, 44% {
     opacity: 0;
     transform: translate(0, 0) rotate(0deg) scale(1);
     clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+    filter: blur(0px) brightness(1);
   }
-  50% {
+  46% {
     opacity: 1;
-    clip-path: polygon(0% 0%, 50% 50%, 60% 100%, 0% 100%);
+    clip-path: polygon(0% 0%, 45% 45%, 55% 100%, 0% 100%);
+    transform: translate(0, 0) rotate(0deg) scale(1);
+    filter: blur(0px) brightness(1);
+  }
+  48% {
+    transform: translate(-15px, 20px) rotate(15deg) scale(0.98);
+    opacity: 0.95;
+    filter: blur(0.5px) brightness(1.2);
   }
   52% {
-    transform: translate(-30px, 40px) rotate(25deg) scale(0.95);
+    transform: translate(-40px, 50px) rotate(35deg) scale(0.92);
     opacity: 0.8;
-    filter: blur(1px) brightness(1.3);
+    filter: blur(1px) brightness(1.4);
   }
-  55% {
-    transform: translate(-50px, 70px) rotate(45deg) scale(0.85);
+  58% {
+    transform: translate(-80px, 100px) rotate(60deg) scale(0.8);
     opacity: 0.5;
-    filter: blur(2px) brightness(1.5);
-  }
-  60% {
-    transform: translate(-70px, 100px) rotate(65deg) scale(0.7);
-    opacity: 0.2;
-    filter: blur(3px) brightness(1.8);
+    filter: blur(2px) brightness(1.6);
   }
   65% {
+    transform: translate(-140px, 180px) rotate(90deg) scale(0.6);
+    opacity: 0.2;
+    filter: blur(4px) brightness(1.8);
+  }
+  75% {
     opacity: 0;
-    transform: translate(-80px, 120px) rotate(75deg) scale(0.5);
+    transform: translate(-200px, 250px) rotate(120deg) scale(0.3);
+    filter: blur(6px) brightness(2);
   }
-  66% {
-    opacity: 0;
-    transform: translate(0, 0) rotate(0deg) scale(1);
-    clip-path: polygon(0% 0%, 50% 50%, 60% 100%, 0% 100%);
-  }
-  70% {
-    opacity: 1;
-    transform: translate(0, 0) rotate(0deg) scale(1);
-    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
-  }
-  85%, 100% {
+  100% {
     opacity: 0;
   }
 }
 
 @keyframes shardBottomRight {
-  0%, 45% {
+  0%, 44% {
     opacity: 0;
     transform: translate(0, 0) rotate(0deg) scale(1);
     clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+    filter: blur(0px) brightness(1);
   }
-  50% {
+  46% {
     opacity: 1;
-    clip-path: polygon(50% 50%, 100% 0%, 100% 100%, 40% 100%);
+    clip-path: polygon(55% 45%, 100% 0%, 100% 100%, 45% 100%);
+    transform: translate(0, 0) rotate(0deg) scale(1);
+    filter: blur(0px) brightness(1);
+  }
+  48% {
+    transform: translate(15px, 20px) rotate(-15deg) scale(0.98);
+    opacity: 0.95;
+    filter: blur(0.5px) brightness(1.2);
   }
   52% {
-    transform: translate(30px, 40px) rotate(-25deg) scale(0.95);
+    transform: translate(40px, 50px) rotate(-35deg) scale(0.92);
     opacity: 0.8;
-    filter: blur(1px) brightness(1.3);
+    filter: blur(1px) brightness(1.4);
   }
-  55% {
-    transform: translate(50px, 70px) rotate(-45deg) scale(0.85);
+  58% {
+    transform: translate(80px, 100px) rotate(-60deg) scale(0.8);
     opacity: 0.5;
-    filter: blur(2px) brightness(1.5);
-  }
-  60% {
-    transform: translate(70px, 100px) rotate(-65deg) scale(0.7);
-    opacity: 0.2;
-    filter: blur(3px) brightness(1.8);
+    filter: blur(2px) brightness(1.6);
   }
   65% {
+    transform: translate(140px, 180px) rotate(-90deg) scale(0.6);
+    opacity: 0.2;
+    filter: blur(4px) brightness(1.8);
+  }
+  75% {
     opacity: 0;
-    transform: translate(80px, 120px) rotate(-75deg) scale(0.5);
+    transform: translate(200px, 250px) rotate(-120deg) scale(0.3);
+    filter: blur(6px) brightness(2);
   }
-  66% {
-    opacity: 0;
-    transform: translate(0, 0) rotate(0deg) scale(1);
-    clip-path: polygon(50% 50%, 100% 0%, 100% 100%, 40% 100%);
-  }
-  70% {
-    opacity: 1;
-    transform: translate(0, 0) rotate(0deg) scale(1);
-    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
-  }
-  85%, 100% {
+  100% {
     opacity: 0;
   }
+}
+
+.crack-lines {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0;
+  animation: crackLines 5s ease-in-out infinite;
+  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.9)) 
+          drop-shadow(0 0 20px rgba(0, 153, 216, 0.7))
+          drop-shadow(0 0 30px rgba(0, 102, 204, 0.5));
 }
 
 @keyframes crackLines {
-  0%, 45%, 70%, 100% {
+  0%, 44% {
     opacity: 0;
   }
-  50% {
+  46% {
     opacity: 1;
   }
-  52% {
-    opacity: 0.8;
+  48% {
+    opacity: 0.95;
   }
-  60% {
-    opacity: 0.3;
+  55% {
+    opacity: 0.7;
   }
   65% {
+    opacity: 0.4;
+  }
+  75% {
+    opacity: 0;
+  }
+  100% {
     opacity: 0;
   }
 }
 
-/* Create the middle zero structure */
-.error-code {
-  position: relative;
-}
-
-.error-code::before,
-.error-code::after {
-  position: relative;
-  display: inline-block;
-}
-
-/* Style adjustments for proper spacing */
 .error-title {
   font-size: clamp(1.75rem, 4vw, 2.5rem);
   color: var(--color-primary);
@@ -520,7 +566,7 @@
 
   .error-code {
     font-size: 5rem;
-    letter-spacing: 1rem;
+    gap: 1rem;
     height: 5rem;
   }
 
@@ -548,7 +594,7 @@
 
   .error-code {
     font-size: 4rem;
-    letter-spacing: 0.5rem;
+    gap: 0.5rem;
     height: 4rem;
   }
 
@@ -571,7 +617,12 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .error-code,
+  .digit-0-whole,
+  .digit-0-shard-tl,
+  .digit-0-shard-tr,
+  .digit-0-shard-bl,
+  .digit-0-shard-br,
+  .crack-lines,
   .error-content,
   .error-title,
   .error-description,
@@ -582,82 +633,4 @@
   .error-section::after {
     animation: none !important;
   }
-}
-
-/* Add to error-page.css */
-
-.error-code {
-  display: flex !important;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-}
-
-.digit-4-left,
-.digit-4-right {
-  color: var(--color-primary);
-  text-shadow: 0 4px 20px rgba(0, 102, 204, 0.3);
-}
-
-.digit-0-container {
-  position: relative;
-  display: inline-block;
-  width: 1em;
-  height: 1em;
-}
-
-.digit-0-whole {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--color-primary);
-  text-shadow: 0 4px 20px rgba(0, 102, 204, 0.3);
-  animation: zeroFall 6s ease-in-out infinite;
-}
-
-.digit-0-shard {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--color-primary);
-  text-shadow: 0 4px 20px rgba(0, 102, 204, 0.3);
-  opacity: 0;
-}
-
-.digit-0-shard-tl {
-  animation: shardTopLeft 6s ease-in-out infinite;
-}
-
-.digit-0-shard-tr {
-  animation: shardTopRight 6s ease-in-out infinite;
-}
-
-.digit-0-shard-bl {
-  animation: shardBottomLeft 6s ease-in-out infinite;
-}
-
-.digit-0-shard-br {
-  animation: shardBottomRight 6s ease-in-out infinite;
-}
-
-.crack-lines {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  opacity: 0;
-  animation: crackLines 6s ease-in-out infinite;
-  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.8)) drop-shadow(0 0 15px rgba(0, 153, 216, 0.6));
 }
