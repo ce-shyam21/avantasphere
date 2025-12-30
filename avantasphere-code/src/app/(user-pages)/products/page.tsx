@@ -21,7 +21,9 @@ export default function ProductsPage() {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [sortBy, setSortBy] = useState("newest");
   const [priceRange, setPriceRange] = useState({ min: 0, max: 10000 });
+  const [tempPriceRange, setTempPriceRange] = useState({ min: 0, max: 10000 });
   const [currentPage, setCurrentPage] = useState(1);
+  const [hasActiveFilters, setHasActiveFilters] = useState(false);
 
   useEffect(() => {
     const loadProducts = async () => {
@@ -60,7 +62,6 @@ export default function ProductsPage() {
         product.pricing.cost <= priceRange.max
     );
 
-    // Sort
     if (sortBy === "price-low") {
       results.sort((a, b) => a.pricing.cost - b.pricing.cost);
     } else if (sortBy === "price-high") {
@@ -76,7 +77,26 @@ export default function ProductsPage() {
 
     setFilteredProducts(results);
     setCurrentPage(1);
+
+    const hasFilters = searchTerm !== "" || 
+                      selectedCategory !== "" || 
+                      priceRange.min !== 0 || 
+                      priceRange.max !== 10000 ||
+                      sortBy !== "newest";
+    setHasActiveFilters(hasFilters);
   }, [products, searchTerm, selectedCategory, sortBy, priceRange]);
+
+  const handleApplyPriceFilter = () => {
+    setPriceRange(tempPriceRange);
+  };
+
+  const handleClearFilters = () => {
+    setSearchTerm("");
+    setSelectedCategory("");
+    setSortBy("newest");
+    setPriceRange({ min: 0, max: 10000 });
+    setTempPriceRange({ min: 0, max: 10000 });
+  };
 
   const totalPages = Math.ceil(filteredProducts.length / ITEMS_PER_PAGE);
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
@@ -107,24 +127,42 @@ export default function ProductsPage() {
             <aside className="sidebar">
               <FilterPanel
                 onCategoryChange={setSelectedCategory}
-                onPriceChange={(min, max) => setPriceRange({ min, max })}
+                onPriceChange={(min, max) => setTempPriceRange({ min, max })}
                 onSortChange={setSortBy}
                 selectedCategory={selectedCategory}
+                sortBy={sortBy}
+                tempPriceRange={tempPriceRange}
+                onApplyPriceFilter={handleApplyPriceFilter}
               />
             </aside>
 
             <main className="main-content">
               <div className="search-container">
-                <input
-                  type="text"
-                  placeholder="Search products..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="search-input"
-                />
-                <span className="results-count">
-                  {filteredProducts.length} products found
-                </span>
+                <div className="search-wrapper">
+                  <input
+                    type="text"
+                    placeholder="Search products..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="search-input"
+                  />
+                  <button className="search-icon-btn" aria-label="Search">
+                    🔍
+                  </button>
+                </div>
+                <div className="search-meta">
+                  <span className="results-count">
+                    {filteredProducts.length} products found
+                  </span>
+                  {hasActiveFilters && (
+                    <button 
+                      className="clear-filters-btn"
+                      onClick={handleClearFilters}
+                    >
+                      ✕ Clear Filters
+                    </button>
+                  )}
+                </div>
               </div>
 
               {loading ? (

@@ -9,7 +9,21 @@ export default function NotFound() {
       <Navbar />
       <section className="error-section">
         <div className="error-content">
-          <h1 className="error-code">404</h1>
+          <div className="error-code">
+            {/* <span className="digit-4-left">4</span> */}
+            <span className="digit-0-container">
+              <span className="digit-0-whole">0</span>
+              <span className="digit-0-shard digit-0-shard-tl">0</span>
+              <span className="digit-0-shard digit-0-shard-tr">0</span>
+              <span className="digit-0-shard digit-0-shard-bl">0</span>
+              <span className="digit-0-shard digit-0-shard-br">0</span>
+              <svg className="crack-lines" width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none">
+                <line x1="50" y1="0" x2="50" y2="100" stroke="rgba(255,255,255,0.9)" strokeWidth="2" />
+                <line x1="0" y1="50" x2="100" y2="50" stroke="rgba(255,255,255,0.9)" strokeWidth="2" />
+              </svg>
+            </span>
+            {/* <span className="digit-4-right">4</span> */}
+          </div>
           <h2 className="error-title">Page Not Found</h2>
           <p className="error-description">
             Sorry, the page you&apos;re looking for doesn&apos;t exist or has been moved.

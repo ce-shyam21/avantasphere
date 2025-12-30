@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import "./filter-panel.css";
 
 interface FilterPanelProps {
@@ -7,6 +8,9 @@ interface FilterPanelProps {
   onPriceChange: (min: number, max: number) => void;
   onSortChange: (sort: string) => void;
   selectedCategory: string;
+  sortBy: string;
+  tempPriceRange: { min: number; max: number };
+  onApplyPriceFilter: () => void;
 }
 
 export default function FilterPanel({
@@ -14,12 +18,31 @@ export default function FilterPanel({
   onPriceChange,
   onSortChange,
   selectedCategory,
+  sortBy,
+  tempPriceRange,
+  onApplyPriceFilter,
 }: FilterPanelProps) {
+  const [minValue, setMinValue] = useState(tempPriceRange.min.toString());
+  const [maxValue, setMaxValue] = useState(tempPriceRange.max.toString());
+
+  const handleMinChange = (value: string) => {
+    setMinValue(value);
+    const numValue = value === "" ? 0 : Number(value);
+    onPriceChange(numValue, Number(maxValue) || 10000);
+  };
+
+  const handleMaxChange = (value: string) => {
+    setMaxValue(value);
+    const numValue = value === "" ? 10000 : Number(value);
+    onPriceChange(Number(minValue) || 0, numValue);
+  };
+
   return (
     <div className="filter-panel">
       <div className="filter-section">
         <h3>Sort By</h3>
         <select
+          value={sortBy}
           onChange={(e) => onSortChange(e.target.value)}
           className="filter-select"
         >
@@ -76,24 +99,34 @@ export default function FilterPanel({
         </div>
       </div>
 
-      <div className="filter-section">
+      {/* <div className="filter-section">
         <h3>Price Range</h3>
         <div className="price-inputs">
           <input
             type="number"
-            placeholder="Min"
-            onChange={(e) => onPriceChange(Number(e.target.value), 10000)}
+            placeholder="Min (0)"
+            value={minValue}
+            onChange={(e) => handleMinChange(e.target.value)}
             className="price-input"
+            min="0"
           />
-          <span>-</span>
+          <span className="price-separator">to</span>
           <input
             type="number"
-            placeholder="Max"
-            onChange={(e) => onPriceChange(0, Number(e.target.value))}
+            placeholder="Max (10000)"
+            value={maxValue}
+            onChange={(e) => handleMaxChange(e.target.value)}
             className="price-input"
+            min="0"
           />
         </div>
-      </div>
+        <button 
+          className="apply-price-btn"
+          onClick={onApplyPriceFilter}
+        >
+          🔍 Apply Price Filter
+        </button>
+      </div> */}
     </div>
   );
 }
