@@ -1,7 +1,49 @@
 .breadcrumb {
-  background-color: #f8f9fa;
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-left: none;
+  border-right: none;
+  box-shadow: 
+    0 6px 24px rgba(0, 102, 204, 0.08),
+    inset 0 1px 2px rgba(255, 255, 255, 0.7);
   padding: var(--spacing-lg) var(--spacing-lg);
+  margin-top: 100px;
   margin-bottom: var(--spacing-2xl);
+  position: relative;
+  overflow: hidden;
+}
+
+.breadcrumb::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 200%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(255, 255, 255, 0.2) 48%, 
+    rgba(0, 153, 216, 0.08) 50%, 
+    rgba(255, 255, 255, 0.2) 52%, 
+    transparent 100%);
+  animation: breadcrumbSweep 6s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes breadcrumbSweep {
+  0%, 100% {
+    left: -100%;
+    opacity: 0;
+  }
+  10%, 90% {
+    opacity: 1;
+  }
+  50% {
+    left: 100%;
+  }
 }
 
 .breadcrumb-container {
@@ -11,6 +53,8 @@
   flex-wrap: wrap;
   align-items: center;
   gap: var(--spacing-sm);
+  position: relative;
+  z-index: 1;
 }
 
 .breadcrumb-item {
@@ -18,23 +62,123 @@
   align-items: center;
   gap: var(--spacing-sm);
   font-size: var(--font-sm);
+  font-weight: 500;
 }
 
 .breadcrumb-item a {
-  color: var(--primary-color);
-  transition: color var(--transition-base);
+  color: var(--color-primary);
+  transition: all var(--transition-base);
+  padding: 4px var(--spacing-sm);
+  border-radius: var(--radius-sm);
+  position: relative;
+  text-decoration: none;
+}
+
+.breadcrumb-item a::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(230, 242, 255, 0.6);
+  border-radius: var(--radius-sm);
+  opacity: 0;
+  transition: all 0.3s ease;
+  z-index: -1;
+}
+
+.breadcrumb-item a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--color-primary), rgba(0, 153, 216, 0.8));
+  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: var(--radius-sm);
+}
+
+.breadcrumb-item a:hover::before {
+  opacity: 1;
+}
+
+.breadcrumb-item a:hover::after {
+  width: 100%;
 }
 
 .breadcrumb-item a:hover {
-  color: var(--secondary-color);
-  text-decoration: underline;
+  color: rgba(0, 133, 220, 0.95);
+  transform: translateY(-1px);
 }
 
 .breadcrumb-item .current {
-  color: var(--gray-color);
+  color: var(--color-text-light);
+  font-weight: 600;
+  padding: 4px var(--spacing-sm);
+  background: rgba(230, 242, 255, 0.5);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: var(--radius-sm);
+  box-shadow: 0 2px 8px rgba(0, 102, 204, 0.06);
 }
 
 .separator {
-  color: var(--gray-color);
-  opacity: 0.6;
+  color: var(--color-text-light);
+  opacity: 0.4;
+  font-weight: 400;
+}
+
+@media (max-width: 768px) {
+  .breadcrumb {
+    padding: var(--spacing-md) var(--spacing-md);
+    backdrop-filter: blur(16px) saturate(160%);
+    -webkit-backdrop-filter: blur(16px) saturate(160%);
+    margin-top: 80px;
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .breadcrumb-item {
+    font-size: var(--font-xs);
+  }
+
+  .breadcrumb-item a,
+  .breadcrumb-item .current {
+    padding: 3px var(--spacing-xs);
+  }
+}
+
+@media (max-width: 480px) {
+  .breadcrumb {
+    padding: var(--spacing-sm) var(--spacing-sm);
+    margin-top: 70px;
+  }
+
+  .breadcrumb-container {
+    gap: 4px;
+  }
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .breadcrumb-item a:active::before {
+    opacity: 1;
+  }
+
+  .breadcrumb-item a:active::after {
+    width: 100%;
+    transition: width 0.2s ease;
+  }
+
+  .breadcrumb-item a:active {
+    transform: scale(0.97);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .breadcrumb::before {
+    animation: none !important;
+  }
+
+  .breadcrumb-item a::after {
+    transition: none;
+  }
 }
