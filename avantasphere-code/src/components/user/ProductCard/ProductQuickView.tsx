@@ -34,9 +34,16 @@ export default function ProductQuickView({
   }, [productId]);
 
   useEffect(() => {
+    const originalOverflow = document.body.style.overflow;
+    const originalPosition = document.body.style.position;
     document.body.style.overflow = "hidden";
+    document.body.style.position = "fixed";
+    document.body.style.width = "100%";
+    
     return () => {
-      document.body.style.overflow = "auto";
+      document.body.style.overflow = originalOverflow;
+      document.body.style.position = originalPosition;
+      document.body.style.width = "";
     };
   }, []);
 

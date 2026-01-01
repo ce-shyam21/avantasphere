@@ -29,11 +29,17 @@ export default function Navbar() {
           <Link href="/" className="nav-link">
             Home
           </Link>
+          <Link href="/categories" className="nav-link">
+            Categories
+          </Link>
           <Link href="/products" className="nav-link">
             Products
           </Link>
           <Link href="/about" className="nav-link">
             About
+          </Link>
+          <Link href="/quote-request" className="nav-link">
+            Quote Request
           </Link>
           <Link href="/contact" className="nav-link cta-link">
             Contact

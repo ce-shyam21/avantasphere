@@ -5,6 +5,9 @@ import Navbar from "@/components/shared/Navbar/Navbar";
 import Footer from "@/components/shared/Footer/Footer";
 import "./contact.css";
 
+// Note: Metadata should be in a separate metadata export for client components
+// For now, we'll handle SEO via layout or use next/head in the component
+
 export default function ContactPage() {
   const [formData, setFormData] = useState({
     name: "",
@@ -176,7 +179,7 @@ export default function ContactPage() {
 
                   <button 
                     type="submit" 
-                    className="submit-btn"
+                    className="submit-btn glass-btn-dark"
                     disabled={loading}
                   >
                     {loading ? "Sending..." : "Send Message"}
