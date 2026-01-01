@@ -1,41 +1,95 @@
-import Link from "next/link";
 import Navbar from "@/components/shared/Navbar/Navbar";
 import Footer from "@/components/shared/Footer/Footer";
-import FeaturedProducts from "@/components/user/FeaturedProducts/FeaturedProducts";
 import CategoryGrid from "@/components/user/CategoryGrid/CategoryGrid";
+import FeaturedProducts from "@/components/user/FeaturedProducts/FeaturedProducts";
+import Link from "next/link";
 import "./page.css";
 
-export default function Home() {
+export const metadata = {
+  title: "AventaSphere - Premium Export-Import Solutions",
+  description: "Discover premium products across electronics, textiles, and machinery. Leading export-import company connecting global buyers and suppliers.",
+  keywords: "export, import, electronics, textiles, machinery, international trade",
+};
+
+export default function HomePage() {
   return (
     <main className="home-page">
       <Navbar />
-      
-      {/* Hero Banner */}
-      <section className="hero-section">
-        <div className="hero-background">
-          <div className="hero-blur-1"></div>
-          <div className="hero-blur-2"></div>
-        </div>
-        <div className="hero-content">
-          <span className="hero-badge">✨ Welcome to AventaSphere</span>
-          <h1 className="hero-title">Find the Perfect Product<br />for Your Business</h1>
-          <p className="hero-subtitle">
-            Discover premium electronics, textiles, and machinery from trusted suppliers worldwide
-          </p>
-          <Link href="/products" className="hero-button">
-            Explore Now →
-          </Link>
-        </div>
-      </section>
 
-      {/* Featured Products Section */}
-      <section className="featured-section">
-        <div className="section-container">
-          <div className="section-header">
-            <h2>🌟 Featured Products</h2>
-            <p>Premium selections handpicked for excellence</p>
+      {/* Hero Section */}
+      <section className="hero-section">
+        <div className="hero-content">
+          <div className="hero-main">
+            <div className="hero-text">
+              <div className="hero-badge glass-card">
+                <span>🌍 Global Export-Import Solutions</span>
+              </div>
+              <h1 className="hero-title">
+                Exporting Excellence
+                <span className="gradient-text"> Worldwide</span>
+              </h1>
+              <p className="hero-description">
+                Your trusted partner for premium export-import solutions. 
+                Discover quality products across electronics, textiles, and machinery 
+                from verified suppliers worldwide.
+              </p>
+              <div className="hero-cta">
+                <Link href="/products" className="btn-primary glass-btn-dark">
+                  Explore Products
+                </Link>
+                <Link href="/quote-request" className="btn-secondary glass-btn-dark">
+                  Get Quote
+                </Link>
+              </div>
+            </div>
+            <div className="hero-visual">
+              <div className="hero-image-wrapper glass-card">
+                <div className="hero-image-container">
+                  <div className="hero-image-main">
+                    <div className="hero-image-bg">
+                      <span className="hero-icon-large">🚢</span>
+                    </div>
+                    <div className="hero-image-overlay">
+                      <div className="hero-image-item">
+                        <span className="hero-icon">📦</span>
+                        <span>Export</span>
+                      </div>
+                      <div className="hero-image-item">
+                        <span className="hero-icon">🌍</span>
+                        <span>Global</span>
+                      </div>
+                      <div className="hero-image-item">
+                        <span className="hero-icon">⚡</span>
+                        <span>Fast</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-          <FeaturedProducts />
+          <div className="hero-stats">
+            <div className="stat-item glass-card">
+              <span className="stat-icon">📦</span>
+              <span className="stat-number">500+</span>
+              <span className="stat-label">Products</span>
+            </div>
+            <div className="stat-item glass-card">
+              <span className="stat-icon">🌍</span>
+              <span className="stat-number">50+</span>
+              <span className="stat-label">Countries</span>
+            </div>
+            <div className="stat-item glass-card">
+              <span className="stat-icon">👥</span>
+              <span className="stat-number">10K+</span>
+              <span className="stat-label">Customers</span>
+            </div>
+            <div className="stat-item glass-card">
+              <span className="stat-icon">⭐</span>
+              <span className="stat-number">15+</span>
+              <span className="stat-label">Years Experience</span>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -43,85 +97,50 @@ export default function Home() {
       <section className="categories-section">
         <div className="section-container">
           <div className="section-header">
-            <h2>📂 Shop by Category</h2>
-            <p>Browse our diverse range of premium products</p>
+            <h2 className="section-title">Shop by Category</h2>
+            <p className="section-description">
+              Explore our wide range of product categories
+            </p>
           </div>
           <CategoryGrid />
-        </div>
-      </section>
-
-      {/* Stats Section */}
-      <section className="stats-section">
-        <div className="section-container">
-          <div className="stats-grid">
-            <div className="stat-item">
-              <span className="stat-number">500+</span>
-              <span className="stat-label">Premium Products</span>
-            </div>
-            <div className="stat-item">
-              <span className="stat-number">50+</span>
-              <span className="stat-label">Countries Served</span>
-            </div>
-            <div className="stat-item">
-              <span className="stat-number">10K+</span>
-              <span className="stat-label">Happy Customers</span>
-            </div>
-            <div className="stat-item">
-              <span className="stat-number">24/7</span>
-              <span className="stat-label">Expert Support</span>
-            </div>
+          <div className="section-footer">
+            <Link href="/categories" className="btn-link glass-btn-dark">
+              View All Categories →
+            </Link>
           </div>
         </div>
       </section>
 
-      {/* Benefits Section */}
-      <section className="benefits-section">
+      {/* Featured Products Section */}
+      <section className="featured-section">
         <div className="section-container">
-          <div className="benefits-grid">
-            <div className="benefit-card">
-              <div className="benefit-icon-wrapper">
-                <span className="benefit-icon">✓</span>
-              </div>
-              <h3>Verified Quality</h3>
-              <p>All products meet international standards and certifications</p>
-            </div>
-            <div className="benefit-card">
-              <div className="benefit-icon-wrapper">
-                <span className="benefit-icon">✈️</span>
-              </div>
-              <h3>Fast Shipping</h3>
-              <p>Quick global delivery with real-time tracking</p>
-            </div>
-            <div className="benefit-card">
-              <div className="benefit-icon-wrapper">
-                <span className="benefit-icon">💬</span>
-              </div>
-              <h3>Expert Support</h3>
-              <p>Dedicated customer service 24/7 in multiple languages</p>
-            </div>
-            <div className="benefit-card">
-              <div className="benefit-icon-wrapper">
-                <span className="benefit-icon">💰</span>
-              </div>
-              <h3>Best Prices</h3>
-              <p>Competitive pricing with exclusive volume discounts</p>
-            </div>
+          <div className="section-header">
+            <h2 className="section-title">Featured Products</h2>
+            <p className="section-description">
+              Handpicked premium products from our collection
+            </p>
+          </div>
+          <FeaturedProducts />
+          <div className="section-footer">
+            <Link href="/products" className="btn-link glass-btn-dark">
+              View All Products →
+            </Link>
           </div>
         </div>
       </section>
 
       {/* CTA Section */}
       <section className="cta-section">
-        <div className="cta-blur-1"></div>
-        <div className="cta-blur-2"></div>
-        <div className="cta-content">
-          <h2>Ready to Find Your Perfect Product?</h2>
-          <p>Browse our complete catalogue or contact our team for personalized assistance</p>
+        <div className="cta-content glass-section">
+          <h2 className="cta-title">Ready to Get Started?</h2>
+          <p className="cta-description">
+            Request a quote or contact our sales team for personalized assistance
+          </p>
           <div className="cta-buttons">
-            <Link href="/products" className="cta-button primary">
-              View All Products
+            <Link href="/quote-request" className="btn-primary glass-btn-dark">
+              Request a Quote
             </Link>
-            <Link href="/contact" className="cta-button secondary">
+            <Link href="/contact" className="btn-secondary glass-btn-dark">
               Contact Us
             </Link>
           </div>
@@ -132,3 +151,4 @@ export default function Home() {
     </main>
   );
 }
+
