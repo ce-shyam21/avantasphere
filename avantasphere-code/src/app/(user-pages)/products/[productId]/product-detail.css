@@ -745,55 +745,76 @@
 }
 
 .btn-request-quote {
-  background: rgba(0, 102, 204, 0.95);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.4);
+  background: linear-gradient(135deg, rgba(26, 54, 93, 0.9) 0%, rgba(0, 102, 204, 0.9) 100%);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   box-shadow: 
-    0 6px 24px rgba(0, 102, 204, 0.25),
-    inset 0 1px 3px rgba(255, 255, 255, 0.3),
-    inset 0 0 20px rgba(255, 255, 255, 0.1);
+    0 4px 16px rgba(26, 54, 93, 0.25),
+    0 2px 8px rgba(0, 102, 204, 0.15),
+    inset 0 1px 2px rgba(255, 255, 255, 0.2);
   color: white;
 }
 
 .btn-request-quote::before {
   content: '';
   position: absolute;
-  top: -100%;
-  left: 0;
+  top: 0;
+  left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-  transition: all 0.6s ease;
-  pointer-events: none;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
 }
 
 .btn-request-quote:hover::before {
+  left: 100%;
+}
+
+.btn-request-quote::after {
+  content: '';
+  position: absolute;
+  top: -100%;
+  left: -10%;
+  width: 120%;
+  height: 100%;
+  background: linear-gradient(180deg, transparent 0%, rgba(255, 255, 255, 0.15) 50%, transparent 100%);
+  transform: skewY(-5deg);
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.btn-request-quote:hover::after {
   top: 100%;
 }
 
 .btn-request-quote:hover {
   transform: translateY(-3px);
   box-shadow: 
-    0 10px 32px rgba(0, 102, 204, 0.35),
-    inset 0 2px 4px rgba(255, 255, 255, 0.4),
-    inset 0 0 25px rgba(255, 255, 255, 0.15);
-  background: rgba(0, 133, 220, 0.95);
+    0 8px 24px rgba(26, 54, 93, 0.35),
+    0 4px 12px rgba(0, 102, 204, 0.25),
+    inset 0 2px 4px rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 255, 255, 0.3);
+  background: linear-gradient(135deg, rgba(26, 54, 93, 0.95) 0%, rgba(0, 102, 204, 0.95) 100%);
 }
 
 .btn-request-quote:active {
-  transform: translateY(-1px) scale(0.98);
+  transform: translateY(0);
+  box-shadow: 
+    0 2px 8px rgba(26, 54, 93, 0.3),
+    inset 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 .btn-contact {
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(255, 255, 255, 0.9);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border: 2px solid rgba(0, 102, 204, 0.4);
   box-shadow: 
     0 4px 16px rgba(0, 102, 204, 0.12),
     inset 0 1px 2px rgba(255, 255, 255, 0.8);
-  color: var(--color-primary);
+  color: #0066cc;
 }
 
 .btn-contact::before {
@@ -813,17 +834,21 @@
 }
 
 .btn-contact:hover {
-  background: rgba(0, 102, 204, 0.95);
+  background: linear-gradient(135deg, rgba(26, 54, 93, 0.9) 0%, rgba(0, 102, 204, 0.9) 100%);
   color: white;
   transform: translateY(-3px);
   box-shadow: 
-    0 10px 32px rgba(0, 102, 204, 0.25),
+    0 8px 24px rgba(26, 54, 93, 0.35),
+    0 4px 12px rgba(0, 102, 204, 0.25),
     inset 0 2px 4px rgba(255, 255, 255, 0.3);
-  border-color: rgba(0, 153, 216, 0.8);
+  border-color: rgba(255, 255, 255, 0.3);
 }
 
 .btn-contact:active {
-  transform: translateY(-1px) scale(0.98);
+  transform: translateY(0);
+  box-shadow: 
+    0 2px 8px rgba(26, 54, 93, 0.3),
+    inset 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 /* ============= RESPONSIVE ============= */

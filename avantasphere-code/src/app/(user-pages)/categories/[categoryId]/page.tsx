@@ -5,6 +5,7 @@ import Footer from "@/components/shared/Footer/Footer";
 import ProductCard from "@/components/user/ProductCard/ProductCard";
 import { Category, Product } from "@/models";
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 import "./category.css";
 
 interface CategoryPageProps {
@@ -47,6 +48,25 @@ async function getCategoryAndProducts(
     console.error("Error loading data:", error);
     return { category: null, products: [] };
   }
+}
+
+export async function generateMetadata({
+  params,
+}: CategoryPageProps): Promise<Metadata> {
+  const { categoryId } = await params;
+  const { category } = await getCategoryAndProducts(categoryId);
+
+  if (!category) {
+    return {
+      title: "Category Not Found - AventaSphere",
+    };
+  }
+
+  return {
+    title: `${category.name} - Product Category | AventaSphere`,
+    description: category.description || `Browse ${category.name} products from AventaSphere`,
+    keywords: `${category.name}, category, products, export, import`,
+  };
 }
 
 export default async function CategoryPage({ params }: CategoryPageProps) {

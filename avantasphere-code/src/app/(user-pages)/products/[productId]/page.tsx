@@ -7,6 +7,7 @@ import ProductDetailClient from "./ProductDetailClient";
 import { Product } from "@/models";
 import { readFileSync } from "fs";
 import path from "path";
+import type { Metadata } from "next";
 import "./page.css";
 
 interface ProductDetailPageProps {
@@ -26,6 +27,25 @@ async function getProduct(productId: string): Promise<Product | null> {
     console.error("Error loading product:", error);
     return null;
   }
+}
+
+export async function generateMetadata({
+  params,
+}: ProductDetailPageProps): Promise<Metadata> {
+  const { productId } = await params;
+  const product = await getProduct(productId);
+
+  if (!product) {
+    return {
+      title: "Product Not Found - AventaSphere",
+    };
+  }
+
+  return {
+    title: `${product.name} - AventaSphere`,
+    description: product.shortDescription || product.fullDescription,
+    keywords: `${product.name}, ${product.categoryId}, export, import, product`,
+  };
 }
 
 export default async function ProductDetailPage({
