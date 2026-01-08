@@ -1,25 +1,43 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import Navbar from "@/components/shared/Navbar/Navbar";
 import Footer from "@/components/shared/Footer/Footer";
 import Breadcrumb from "@/components/shared/Breadcrumb/Breadcrumb";
 import "./quote-request.css";
 
 export default function QuoteRequestPage() {
+  const searchParams = useSearchParams();
+  
+  // Get query parameters
+  const productNameParam = searchParams.get("productName") || "";
+  const productIdParam = searchParams.get("productId") || "";
+  const quantityParam = searchParams.get("quantity") || "";
+  const skuParam = searchParams.get("sku") || "";
+
   const [formData, setFormData] = useState({
     customerName: "",
     customerEmail: "",
     companyName: "",
     phone: "",
-    productName: "",
-    quantity: "",
+    productName: productNameParam,
+    quantity: quantityParam,
     message: "",
   });
 
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState("");
+
+  // Update form when URL params change
+  useEffect(() => {
+    setFormData(prev => ({
+      ...prev,
+      productName: productNameParam,
+      quantity: quantityParam,
+    }));
+  }, [productNameParam, quantityParam]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -44,6 +62,8 @@ export default function QuoteRequestPage() {
         },
         body: JSON.stringify({
           ...formData,
+          productId: productIdParam,
+          sku: skuParam,
           type: "quote",
           quantity: formData.quantity || "1",
         }),
@@ -77,24 +97,34 @@ export default function QuoteRequestPage() {
     }
   };
 
+  // Dynamic breadcrumb based on whether coming from a product page
+  const breadcrumbItems = productNameParam
+    ? [
+        { label: "Home", href: "/" },
+        { label: "Products", href: "/products" },
+        ...(productIdParam ? [{ label: productNameParam, href: `/products/${productIdParam}` }] : []),
+        { label: "Quote Request" },
+      ]
+    : [
+        { label: "Home", href: "/" },
+        { label: "Quote Request" },
+      ];
+
   return (
     <main className="quote-request-page">
       <Navbar />
 
-      <Breadcrumb
-        items={[
-          { label: "Home", href: "/" },
-          { label: "Quote Request" },
-        ]}
-      />
+      <Breadcrumb items={breadcrumbItems} />
 
       <section className="quote-request-section">
         <div className="quote-request-container">
           <div className="quote-header glass-section">
             <h1 className="quote-title">Request a Quote</h1>
             <p className="quote-description">
-              Fill out the form below to request a custom quote for any of our products. 
-              Our sales team will get back to you within 24 hours with competitive pricing.
+              {productNameParam 
+                ? `Request a custom quote for ${productNameParam}. Our sales team will get back to you within 24 hours with competitive pricing.`
+                : "Fill out the form below to request a custom quote for any of our products. Our sales team will get back to you within 24 hours with competitive pricing."
+              }
             </p>
           </div>
 
@@ -179,7 +209,9 @@ export default function QuoteRequestPage() {
 
                 <div className="form-row">
                   <div className="form-group">
-                    <label htmlFor="productName">Product Name (Optional)</label>
+                    <label htmlFor="productName">
+                      Product Name {productNameParam ? "" : "(Optional)"}
+                    </label>
                     <input
                       type="text"
                       id="productName"
@@ -188,6 +220,7 @@ export default function QuoteRequestPage() {
                       onChange={handleChange}
                       placeholder="Product you're interested in"
                       disabled={loading}
+                      readOnly={!!productNameParam}
                     />
                   </div>
 
@@ -237,4 +270,3 @@ export default function QuoteRequestPage() {
     </main>
   );
 }
-

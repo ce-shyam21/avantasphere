@@ -17,6 +17,7 @@ export default function HomePage() {
       <Navbar />
 
       {/* Hero Section */}
+      {/* Hero Section */}
       <section className="hero-section">
         <div className="hero-content">
           <div className="hero-main">
@@ -29,8 +30,8 @@ export default function HomePage() {
                 <span className="gradient-text"> Worldwide</span>
               </h1>
               <p className="hero-description">
-                Your trusted partner for premium export-import solutions. 
-                Discover quality products across electronics, textiles, and machinery 
+                Your trusted partner for premium export-import solutions.
+                Discover quality products across electronics, textiles, and machinery
                 from verified suppliers worldwide.
               </p>
               <div className="hero-cta">
@@ -42,32 +43,40 @@ export default function HomePage() {
                 </Link>
               </div>
             </div>
+
             <div className="hero-visual">
-              <div className="hero-image-wrapper glass-card">
-                <div className="hero-image-container">
-                  <div className="hero-image-main">
-                    <div className="hero-image-bg">
-                      <span className="hero-icon-large">🚢</span>
-                    </div>
-                    <div className="hero-image-overlay">
-                      <div className="hero-image-item">
-                        <span className="hero-icon">📦</span>
-                        <span>Export</span>
-                      </div>
-                      <div className="hero-image-item">
-                        <span className="hero-icon">🌍</span>
-                        <span>Global</span>
-                      </div>
-                      <div className="hero-image-item">
-                        <span className="hero-icon">⚡</span>
-                        <span>Fast</span>
-                      </div>
-                    </div>
+              <div className="hero-image-wrapper">
+                <img
+                  src="/images/ui/backgrounds/Home_Background_4.png"
+                  alt="Export Import Solutions"
+                  className="hero-image"
+                />
+
+                {/* Glass Card 1 - Top Left */}
+                <div className="glass-overlay-card card-top-left">
+                  <div className="card-icon">
+                    <span>🏆</span>
+                  </div>
+                  <div className="card-content">
+                    <h3 className="card-title">ISO Certified</h3>
+                    <p className="card-subtitle">International Standards</p>
+                  </div>
+                </div>
+
+                {/* Glass Card 2 - Bottom Right */}
+                <div className="glass-overlay-card card-bottom-right">
+                  <div className="card-icon">
+                    <span>📈</span>
+                  </div>
+                  <div className="card-content">
+                    <h3 className="card-title">50+</h3>
+                    <p className="card-subtitle">Countries</p>
                   </div>
                 </div>
               </div>
             </div>
           </div>
+
           <div className="hero-stats">
             <div className="stat-item glass-card">
               <span className="stat-icon">📦</span>
@@ -92,6 +101,7 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
 
       {/* Categories Section */}
       <section className="categories-section">

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import QuoteRequestModal from "@/components/user/QuoteRequestModal/QuoteRequestModal";
+import { useRouter } from "next/navigation";
 import { Product } from "@/models";
 import "./product-detail.css";
 
@@ -11,8 +11,30 @@ interface ProductDetailClientProps {
 
 export default function ProductDetailClient({ product }: ProductDetailClientProps) {
   const [quantity, setQuantity] = useState(product.pricing.moq || 1);
-  const [showQuoteModal, setShowQuoteModal] = useState(false);
-  const [showContactModal, setShowContactModal] = useState(false);
+  const router = useRouter();
+
+  const handleRequestQuote = () => {
+    // Encode product data to pass via URL
+    const queryParams = new URLSearchParams({
+      productName: product.name,
+      productId: product.id,
+      quantity: quantity.toString(),
+      sku: product.sku,
+    });
+    
+    router.push(`/quote-request?${queryParams.toString()}`);
+  };
+
+  const handleContactUs = () => {
+    // Pass product context to contact page
+    const queryParams = new URLSearchParams({
+      productName: product.name,
+      productId: product.id,
+      subject: `Inquiry about ${product.name}`,
+    });
+    
+    router.push(`/contact?${queryParams.toString()}`);
+  };
 
   return (
     <>
@@ -142,13 +164,13 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
             <div className="action-section">
               <div className="action-buttons">
                 <button
-                  onClick={() => setShowQuoteModal(true)}
+                  onClick={handleRequestQuote}
                   className="btn-request-quote"
                 >
                   📧 Request a Quote
                 </button>
                 <button
-                  onClick={() => setShowContactModal(true)}
+                  onClick={handleContactUs}
                   className="btn-contact"
                 >
                   💬 Contact Us
@@ -160,23 +182,6 @@ export default function ProductDetailClient({ product }: ProductDetailClientProp
 
         </div>
       </section>
-
-      {/* Modals */}
-      {showQuoteModal && (
-        <QuoteRequestModal
-          productName={product.name}
-          onClose={() => setShowQuoteModal(false)}
-          type="quote"
-        />
-      )}
-
-      {showContactModal && (
-        <QuoteRequestModal
-          productName={product.name}
-          onClose={() => setShowContactModal(false)}
-          type="contact"
-        />
-      )}
     </>
   );
 }

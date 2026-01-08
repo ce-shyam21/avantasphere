@@ -1,25 +1,41 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import Navbar from "@/components/shared/Navbar/Navbar";
 import Footer from "@/components/shared/Footer/Footer";
+import Breadcrumb from "@/components/shared/Breadcrumb/Breadcrumb";
 import "./contact.css";
 
-// Note: Metadata should be in a separate metadata export for client components
-// For now, we'll handle SEO via layout or use next/head in the component
-
 export default function ContactPage() {
+  const searchParams = useSearchParams();
+  
+  // Get query parameters
+  const productNameParam = searchParams.get("productName") || "";
+  const productIdParam = searchParams.get("productId") || "";
+  const subjectParam = searchParams.get("subject") || "";
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     company: "",
     phone: "",
-    message: "",
+    message: subjectParam ? `${subjectParam}\n\n` : "",
   });
 
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+
+  // Update message when URL params change
+  useEffect(() => {
+    if (subjectParam) {
+      setFormData(prev => ({
+        ...prev,
+        message: `${subjectParam}\n\n${prev.message.replace(subjectParam, "").trim()}`,
+      }));
+    }
+  }, [subjectParam]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -42,7 +58,11 @@ export default function ContactPage() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          ...formData,
+          productName: productNameParam,
+          productId: productIdParam,
+        }),
       });
 
       const data = await response.json();
@@ -60,7 +80,6 @@ export default function ContactPage() {
         message: "",
       });
 
-      // Hide success message after 5 seconds
       setTimeout(() => setSubmitted(false), 5000);
     } catch (err) {
       setError(
@@ -72,15 +91,35 @@ export default function ContactPage() {
     }
   };
 
+  // Dynamic breadcrumb based on whether coming from a product page
+  const breadcrumbItems = productNameParam
+    ? [
+        { label: "Home", href: "/" },
+        { label: "Products", href: "/products" },
+        ...(productIdParam ? [{ label: productNameParam, href: `/products/${productIdParam}` }] : []),
+        { label: "Contact Us" },
+      ]
+    : [
+        { label: "Home", href: "/" },
+        { label: "Contact Us" },
+      ];
+
   return (
     <main className="contact-page">
       <Navbar />
+
+      <Breadcrumb items={breadcrumbItems} />
 
       <section className="contact-section">
         <div className="contact-container">
           <div className="contact-header">
             <h1>Contact Us</h1>
-            <p>Get in touch with our sales team for inquiries and support</p>
+            <p>
+              {productNameParam
+                ? `Get in touch with our team about ${productNameParam}`
+                : "Get in touch with our sales team for inquiries and support"
+              }
+            </p>
           </div>
 
           <div className="contact-content">
