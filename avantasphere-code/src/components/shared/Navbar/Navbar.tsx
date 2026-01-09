@@ -11,8 +11,11 @@ export default function Navbar() {
     <nav className="navbar">
       <div className="navbar-container">
         <Link href="/" className="navbar-logo">
-          <span className="logo-icon">🌐</span>
-          <span className="logo-text">AventaSphere</span>
+          <img
+            src="/images/logos/AvantaSphere_Logo_2.png"
+            alt="AventaSphere Logo"
+            className="navbar-logo-image"
+          />
         </Link>
 
         <button

@@ -195,6 +195,14 @@
   }
 }
 
+.footer-logo-image {
+  height: 3rem;
+  width: 100%;
+  object-fit: contain;
+  transition: all 0.3s ease;
+}
+
+
 .footer-menu-section {
   display: flex;
   flex-direction: column;
