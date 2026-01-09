@@ -2,6 +2,8 @@ import { sendEmail, getQuoteEmailTemplate, getAdminEmailTemplate } from "@/lib/e
 import { readFileSync, writeFileSync } from "fs";
 import path from "path";
 
+export const runtime = "nodejs"; // 🔥 REQUIRED - This was missing!
+
 export async function POST(request: Request) {
   console.log("=== QUOTE REQUEST STARTED ===");
   
@@ -18,6 +20,8 @@ export async function POST(request: Request) {
       quantity,
       message,
       type,
+      productId,
+      sku,
     } = body;
 
     // Validate required fields
@@ -46,6 +50,8 @@ export async function POST(request: Request) {
       companyName: string;
       phone: string;
       productName: string;
+      productId?: string;
+      sku?: string;
       quantity: string;
       message: string;
       type: string;
@@ -53,11 +59,18 @@ export async function POST(request: Request) {
       createdAt: string;
     }> } = { inquiries: [] };
 
-    try {
-      const content = readFileSync(inquiriesPath, "utf-8");
-      inquiriesData = JSON.parse(content);
-    } catch {
-      console.log("Creating new inquiries.json file");
+    // Check if running on Vercel
+    const isVercel = process.env.VERCEL === "1";
+
+    if (!isVercel) {
+      try {
+        const content = readFileSync(inquiriesPath, "utf-8");
+        inquiriesData = JSON.parse(content);
+      } catch {
+        console.log("Creating new inquiries.json file");
+      }
+    } else {
+      console.log("⚠️ JSON read skipped on Vercel");
     }
 
     const newInquiry = {
@@ -66,25 +79,32 @@ export async function POST(request: Request) {
       customerEmail,
       companyName: companyName || "N/A",
       phone: phone || "N/A",
-      productName,
-      quantity,
+      productName: productName || "General Inquiry",
+      productId: productId || "",
+      sku: sku || "",
+      quantity: quantity || "1",
       message,
-      type,
+      type: type || "quote",
       status: "pending",
       createdAt: new Date().toISOString(),
     };
 
     inquiriesData.inquiries.push(newInquiry);
-    writeFileSync(inquiriesPath, JSON.stringify(inquiriesData, null, 2));
-    console.log("✅ Inquiry saved to JSON:", newInquiry.id);
+
+    if (!isVercel) {
+      writeFileSync(inquiriesPath, JSON.stringify(inquiriesData, null, 2));
+      console.log("✅ Inquiry saved to JSON:", newInquiry.id);
+    } else {
+      console.log("⚠️ Skipped JSON write on Vercel");
+    }
 
     // Send email to customer
     console.log("\n📧 Attempting to send customer email...");
     const customerEmailContent = getQuoteEmailTemplate({
       customerName,
       customerEmail,
-      productName,
-      quantity,
+      productName: productName || "General Inquiry",
+      quantity: quantity || "1",
       message,
       companyName: companyName || "N/A",
       phone: phone || "N/A",
@@ -92,7 +112,7 @@ export async function POST(request: Request) {
 
     const customerEmailResult = await sendEmail({
       to: customerEmail,
-      subject: `Quote Request Confirmation - ${productName}`,
+      subject: `Quote Request Confirmation - ${productName || "Your Inquiry"}`,
       html: customerEmailContent,
     });
 
@@ -109,15 +129,15 @@ export async function POST(request: Request) {
       customerEmail,
       customerCompany: companyName || "N/A",
       customerPhone: phone || "N/A",
-      productName,
-      quantity,
+      productName: productName || "General Inquiry",
+      quantity: quantity || "1",
       message,
     });
 
     const adminEmailResult = await sendEmail({
       to: process.env.ADMIN_EMAIL || process.env.BUSINESS_EMAIL || "",
       cc: process.env.BUSINESS_EMAIL,
-      subject: `New Quote Request - ${productName}`,
+      subject: `New Quote Request - ${productName || "General Inquiry"}`,
       html: adminEmailContent,
     });
 
