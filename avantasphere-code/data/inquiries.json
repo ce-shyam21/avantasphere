@@ -1,111 +1,20 @@
 {
   "inquiries": [
     {
-      "id": "inq_1767025123294",
-      "customerName": "Shyam Mangroliya",
-      "customerEmail": "am8cone23@gmail.com",
-      "companyName": "India",
-      "phone": "+918799572988",
-      "productName": "Synthetic Polyester Yarn 1kg",
-      "quantity": 1,
-      "message": "test",
-      "type": "quote",
-      "status": "pending",
-      "createdAt": "2025-12-29T16:18:43.294Z"
+      "id": 1,
+      "question": "How can I improve the user experience on my website?",
+      "answer": "To improve user experience, focus on intuitive navigation, fast load times, and responsive design. Conduct user testing to gather feedback and make necessary adjustments."
     },
     {
-      "id": "inq_1767025481004",
-      "name": "dfg",
-      "email": "am8cone23@gmail.com",
-      "company": "India",
-      "phone": "08799572988",
-      "message": "fgsf",
-      "status": "pending",
-      "createdAt": "2025-12-29T16:24:41.004Z"
+      "id": 2,
+      "question": "What are the best practices for SEO in 2024?",
+      "answer": "Best practices for SEO in 2024 include optimizing for mobile-first indexing, using high-quality content, leveraging AI tools for keyword research, and ensuring a secure website with HTTPS."
     },
     {
-      "id": "inq_1767025519968",
-      "customerName": "Shyam Mangroliya",
-      "customerEmail": "am8cone23@gmail.com",
-      "companyName": "India",
-      "phone": "+918799572988",
-      "productName": "Industrial LED Bulbs 10W",
-      "quantity": 1,
-      "message": "adfadfgadgad",
-      "type": "quote",
-      "status": "pending",
-      "createdAt": "2025-12-29T16:25:19.968Z"
-    },
-    {
-      "id": "inq_1767025986453",
-      "customerName": "Shyam Mangroliya",
-      "customerEmail": "am8cone23@gmail.com",
-      "companyName": "India",
-      "phone": "+918799572988",
-      "productName": "Industrial LED Bulbs 10W",
-      "quantity": 1,
-      "message": "fdaeqwtqette",
-      "type": "quote",
-      "status": "pending",
-      "createdAt": "2025-12-29T16:33:06.453Z"
-    },
-    {
-      "id": "inq_1767026181930",
-      "customerName": "Shyam Mangroliya",
-      "customerEmail": "am8cone23@gmail.com",
-      "companyName": "India",
-      "phone": "+918799572988",
-      "productName": "Industrial LED Bulbs 10W",
-      "quantity": 1,
-      "message": "dfgsfgfdsgs",
-      "type": "quote",
-      "status": "pending",
-      "createdAt": "2025-12-29T16:36:21.930Z"
-    },
-    {
-      "id": "inq_1767026581471",
-      "name": "Shyam Mangroliya",
-      "email": "ce.shyam21@gmail.com",
-      "company": "India",
-      "phone": "08799572988",
-      "message": "gwrtgw",
-      "status": "pending",
-      "createdAt": "2025-12-29T16:43:01.471Z"
-    },
-    {
-      "id": "contact_1767026889472",
-      "name": "Shyam Mangroliya",
-      "email": "am8cone123@gmail.com",
-      "company": "India",
-      "phone": "08799572988",
-      "message": "fafafeasfeqwafaqewdsfeqwafrqereqre",
-      "type": "contact",
-      "status": "pending",
-      "createdAt": "2025-12-29T16:48:09.472Z"
-    },
-    {
-      "id": "inq_1767028502752",
-      "customerName": "Shyam Mangroliya",
-      "customerEmail": "ce.shyam21@gmail.com",
-      "companyName": "India",
-      "phone": "+918799572988",
-      "productName": "Power Supply Unit 500W",
-      "quantity": "1",
-      "message": "fdafda",
-      "type": "contact",
-      "status": "pending",
-      "createdAt": "2025-12-29T17:15:02.752Z"
-    },
-    {
-      "id": "contact_1767029163145",
-      "name": "Shyam Mangroliya",
-      "email": "ce.shyam21@gmail.com",
-      "company": "India",
-      "phone": "08799572988",
-      "message": "dfadfadf",
-      "type": "contact",
-      "status": "pending",
-      "createdAt": "2025-12-29T17:26:03.145Z"
-    }
+      "id": 3,
+      "question": "How do I implement a dark mode feature on my website?",
+      "answer": "To implement dark mode, use CSS media queries to detect user preferences and apply a dark color scheme. Provide a toggle switch for users to manually switch between light and dark modes."
+    } 
+
   ]
 }

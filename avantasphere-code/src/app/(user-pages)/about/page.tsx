@@ -2,6 +2,12 @@ import Navbar from "@/components/shared/Navbar/Navbar";
 import Footer from "@/components/shared/Footer/Footer";
 import "./about.css";
 
+export const metadata = {
+  title: "About Us - AventaSphere | Leading Export-Import Company",
+  description: "Learn about AventaSphere, a leading export-import company specializing in premium products across electronics, textiles, and machinery. Trusted partner for businesses worldwide.",
+  keywords: "about, export-import, company, international trade, business",
+};
+
 export default function AboutPage() {
   return (
     <main className="about-page">

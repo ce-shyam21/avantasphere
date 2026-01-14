@@ -11,6 +11,8 @@ import Breadcrumb from "@/components/shared/Breadcrumb/Breadcrumb";
 import { Product } from "@/models";
 import "./products.css";
 
+// Note: For client components, metadata should be handled via layout or next/head
+
 const ITEMS_PER_PAGE = 12;
 
 export default function ProductsPage() {

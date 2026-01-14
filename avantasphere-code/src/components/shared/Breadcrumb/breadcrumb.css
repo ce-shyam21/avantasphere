@@ -3,16 +3,23 @@
   backdrop-filter: blur(24px) saturate(180%);
   -webkit-backdrop-filter: blur(24px) saturate(180%);
   border: 1px solid rgba(255, 255, 255, 0.4);
-  border-left: none;
-  border-right: none;
   box-shadow: 
     0 6px 24px rgba(0, 102, 204, 0.08),
     inset 0 1px 2px rgba(255, 255, 255, 0.7);
-  padding: var(--spacing-lg) var(--spacing-lg);
-  margin-top: 100px;
+  padding: var(--spacing-md) var(--spacing-xl);
+  position: fixed;
+  top: calc(var(--spacing-lg) + 80px);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 900;
+  width: calc(100% - var(--spacing-2xl));
+  max-width: 1400px;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  margin-top: 10px;
   margin-bottom: var(--spacing-2xl);
   position: relative;
-  overflow: hidden;
 }
 
 .breadcrumb::before {
@@ -130,11 +137,12 @@
 
 @media (max-width: 768px) {
   .breadcrumb {
-    padding: var(--spacing-md) var(--spacing-md);
+    padding: var(--spacing-sm) var(--spacing-lg);
     backdrop-filter: blur(16px) saturate(160%);
     -webkit-backdrop-filter: blur(16px) saturate(160%);
-    margin-top: 80px;
-    margin-bottom: var(--spacing-lg);
+    top: calc(var(--spacing-md) + 70px);
+    width: calc(100% - var(--spacing-xl));
+    border-radius: var(--radius-lg);
   }
 
   .breadcrumb-item {
@@ -149,8 +157,10 @@
 
 @media (max-width: 480px) {
   .breadcrumb {
-    padding: var(--spacing-sm) var(--spacing-sm);
-    margin-top: 70px;
+    padding: var(--spacing-xs) var(--spacing-md);
+    top: calc(var(--spacing-sm) + 65px);
+    width: calc(100% - var(--spacing-lg));
+    border-radius: var(--radius-md);
   }
 
   .breadcrumb-container {

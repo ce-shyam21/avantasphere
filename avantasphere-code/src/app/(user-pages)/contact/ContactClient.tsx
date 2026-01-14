@@ -1,16 +1,15 @@
 "use client";
-
-import { Suspense, useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
+import { useState, useEffect } from "react";
 import Navbar from "@/components/shared/Navbar/Navbar";
 import Footer from "@/components/shared/Footer/Footer";
 import Breadcrumb from "@/components/shared/Breadcrumb/Breadcrumb";
 import "./contact.css";
 
-// Separate component that uses useSearchParams
-function ContactForm() {
+export default function ContactPage() {
   const searchParams = useSearchParams();
   
+  // Get query parameters
   const productNameParam = searchParams.get("productName") || "";
   const productIdParam = searchParams.get("productId") || "";
   const subjectParam = searchParams.get("subject") || "";
@@ -27,6 +26,7 @@ function ContactForm() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
+  // Update message when URL params change
   useEffect(() => {
     if (subjectParam) {
       setFormData(prev => ({
@@ -90,6 +90,7 @@ function ContactForm() {
     }
   };
 
+  // Dynamic breadcrumb based on whether coming from a product page
   const breadcrumbItems = productNameParam
     ? [
         { label: "Home", href: "/" },
@@ -103,7 +104,9 @@ function ContactForm() {
       ];
 
   return (
-    <>
+    <main className="contact-page">
+      <Navbar />
+
       <Breadcrumb items={breadcrumbItems} />
 
       <section className="contact-section">
@@ -256,23 +259,6 @@ function ContactForm() {
           </div>
         </div>
       </section>
-    </>
-  );
-}
-
-// Main page component with Suspense wrapper
-export default function ContactPage() {
-  return (
-    <main className="contact-page">
-      <Navbar />
-      
-      <Suspense fallback={
-        <div style={{ padding: "2rem", textAlign: "center" }}>
-          Loading...
-        </div>
-      }>
-        <ContactForm />
-      </Suspense>
 
       <Footer />
     </main>
