@@ -1,15 +1,18 @@
 import { prisma } from '@/lib/prisma'
 import { NextResponse } from 'next/server'
-import type { Category } from '@prisma/client'
+
+type CategoryType = Awaited<
+  ReturnType<typeof prisma.category.findMany>
+>[number]
 
 export async function GET() {
   try {
-    const categories: Category[] = await prisma.category.findMany({
+    const categories = await prisma.category.findMany({
       where: { status: 'active' },
       orderBy: { displayOrder: 'asc' },
     })
 
-    const formattedCategories = categories.map((cat: Category) => ({
+    const formattedCategories = categories.map((cat: CategoryType) => ({
       id: cat.id.toString(),
       name: cat.name,
       slug: cat.slug,
