@@ -1,14 +1,270 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
-  provider = "prisma-client"
-  output   = "../generated/prisma"
+  provider = "prisma-client-js"
 }
 
 datasource db {
   provider = "postgresql"
+}
+
+// ==================== CATEGORIES ====================
+model Category {
+  id          Int         @id @default(autoincrement())
+  name        String      @unique
+  slug        String      @unique
+  description String?
+  imageUrl    String?     @map("image_url")
+  displayOrder Int        @default(0) @map("display_order")
+  status      String      @default("active")
+  seoTitle    String?     @map("seo_title")
+  seoDescription String?  @map("seo_description")
+  
+  products    Product[]
+  createdAt   DateTime    @default(now()) @map("created_at")
+  updatedAt   DateTime    @updatedAt @map("updated_at")
+
+  @@map("categories")
+}
+
+// ==================== PRODUCTS ====================
+model Product {
+  id                String      @id @default(cuid())
+  categoryId        Int         @map("category_id")
+  productName       String      @map("product_name")
+  productCode       String      @unique @map("product_code")
+  shortDescription  String      @map("short_description")
+  detailedDescription String?   @map("detailed_description")
+  specifications    Json?       @db.JsonB
+  applicationUsage  String?     @map("application_usage")
+  material          String?
+  originCountry     String?     @map("origin_country")
+  brandName         String?     @map("brand_name")
+  isFeatured        Boolean     @default(false) @map("is_featured")
+  status            String      @default("active")
+  seoTitle          String?     @map("seo_title")
+  seoDescription    String?     @map("seo_description")
+  
+  category          Category    @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  images            ProductImage[]
+  documents         ProductDocument[]
+  pricing           ProductPricing?
+  quoteRequests     QuoteRequest[]
+  
+  createdAt         DateTime    @default(now()) @map("created_at")
+  updatedAt         DateTime    @updatedAt @map("updated_at")
+
+  @@map("products")
+  @@index([categoryId])
+}
+
+// ==================== PRODUCT IMAGES ====================
+model ProductImage {
+  id          Int         @id @default(autoincrement())
+  productId   String      @map("product_id")
+  imageUrl    String      @map("image_url")
+  isPrimary   Boolean     @default(false) @map("is_primary")
+  sortOrder   Int         @default(0) @map("sort_order")
+  
+  product     Product     @relation(fields: [productId], references: [id], onDelete: Cascade)
+  createdAt   DateTime    @default(now()) @map("created_at")
+
+  @@map("product_images")
+  @@index([productId])
+}
+
+// ==================== PRODUCT DOCUMENTS ====================
+model ProductDocument {
+  id          Int         @id @default(autoincrement())
+  productId   String      @map("product_id")
+  documentType String     @map("document_type")
+  fileUrl     String      @map("file_url")
+  
+  product     Product     @relation(fields: [productId], references: [id], onDelete: Cascade)
+  createdAt   DateTime    @default(now()) @map("created_at")
+
+  @@map("product_documents")
+  @@index([productId])
+}
+
+// ==================== PRODUCT PRICING ====================
+model ProductPricing {
+  id                  Int         @id @default(autoincrement())
+  productId           String      @unique @map("product_id")
+  minOrderQuantity    Int         @map("min_order_quantity")
+  unit                String      @default("units")
+  priceFrom           Float       @map("price_from")
+  priceTo             Float?      @map("price_to")
+  currency            String      @default("USD")
+  incoterm            String      @default("FOB")
+  
+  product             Product     @relation(fields: [productId], references: [id], onDelete: Cascade)
+  createdAt           DateTime    @default(now()) @map("created_at")
+  updatedAt           DateTime    @updatedAt @map("updated_at")
+
+  @@map("product_pricing")
+}
+
+// ==================== BUYERS ====================
+model Buyer {
+  id          Int         @id @default(autoincrement())
+  companyName String      @map("company_name")
+  contactPerson String    @map("contact_person")
+  email       String      @unique
+  phone       String?
+  country     String?
+  address     String?
+  website     String?
+  
+  quoteRequests QuoteRequest[]
+  contactMessages ContactMessage[]
+  
+  createdAt   DateTime    @default(now()) @map("created_at")
+
+  @@map("buyers")
+}
+
+// ==================== QUOTE REQUESTS ====================
+model QuoteRequest {
+  id              Int         @id @default(autoincrement())
+  buyerId         Int?        @map("buyer_id")
+  productId       String?     @map("product_id")
+  requestedQuantity Int       @map("requested_quantity")
+  targetPrice     Float?      @map("target_price")
+  destinationCountry String?  @map("destination_country")
+  message         String?
+  status          String      @default("pending")
+  assignedAdminId String?     @map("assigned_admin_id")
+  
+  buyer           Buyer?      @relation(fields: [buyerId], references: [id], onDelete: SetNull)
+  product         Product?    @relation(fields: [productId], references: [id], onDelete: SetNull)
+  responses       QuoteResponse[]
+  
+  createdAt       DateTime    @default(now()) @map("created_at")
+  updatedAt       DateTime    @updatedAt @map("updated_at")
+
+  @@map("quote_requests")
+  @@index([buyerId])
+  @@index([productId])
+}
+
+// ==================== QUOTE RESPONSES ====================
+model QuoteResponse {
+  id              Int         @id @default(autoincrement())
+  quoteRequestId  Int         @map("quote_request_id")
+  quotedPrice     Float       @map("quoted_price")
+  currency        String      @default("USD")
+  deliveryTime    String      @map("delivery_time")
+  validityDate    DateTime    @map("validity_date")
+  adminNotes      String?     @map("admin_notes")
+  
+  quoteRequest    QuoteRequest @relation(fields: [quoteRequestId], references: [id], onDelete: Cascade)
+  createdAt       DateTime    @default(now()) @map("created_at")
+
+  @@map("quote_responses")
+  @@index([quoteRequestId])
+}
+
+// ==================== CONTACT MESSAGES ====================
+model ContactMessage {
+  id          Int         @id @default(autoincrement())
+  buyerId     Int?        @map("buyer_id")
+  name        String
+  email       String
+  phone       String?
+  subject     String?
+  message     String
+  source      String      @default("contact_form")
+  status      String      @default("pending")
+  assignedAdminId String? @map("assigned_admin_id")
+  
+  buyer       Buyer?      @relation(fields: [buyerId], references: [id], onDelete: SetNull)
+  createdAt   DateTime    @default(now()) @map("created_at")
+  updatedAt   DateTime    @updatedAt @map("updated_at")
+
+  @@map("contact_messages")
+  @@index([buyerId])
+}
+
+// ==================== ADMIN USERS ====================
+model AdminUser {
+  id          String      @id @default(cuid())
+  fullName    String      @map("full_name")
+  email       String      @unique
+  passwordHash String      @map("password_hash")
+  phone       String?
+  roleId      Int?        @map("role_id")
+  status      String      @default("active")
+  lastLoginAt DateTime?   @map("last_login_at")
+  
+  role        AdminRole?  @relation(fields: [roleId], references: [id], onDelete: SetNull)
+  activityLogs AdminActivityLog[]
+  
+  createdAt   DateTime    @default(now()) @map("created_at")
+  updatedAt   DateTime    @updatedAt @map("updated_at")
+
+  @@map("admin_users")
+}
+
+// ==================== ADMIN ROLES ====================
+model AdminRole {
+  id          Int         @id @default(autoincrement())
+  roleName    String      @unique @map("role_name")
+  description String?
+  
+  admins      AdminUser[]
+  permissions RolePermission[]
+  createdAt   DateTime    @default(now()) @map("created_at")
+
+  @@map("admin_roles")
+}
+
+// ==================== ADMIN PERMISSIONS ====================
+model AdminPermission {
+  id          Int         @id @default(autoincrement())
+  permissionKey String    @unique @map("permission_key")
+  description String?
+  
+  roles       RolePermission[]
+  createdAt   DateTime    @default(now()) @map("created_at")
+
+  @@map("admin_permissions")
+}
+
+// ==================== ROLE PERMISSIONS ====================
+model RolePermission {
+  id          Int         @id @default(autoincrement())
+  roleId      Int         @map("role_id")
+  permissionId Int        @map("permission_id")
+  
+  role        AdminRole   @relation(fields: [roleId], references: [id], onDelete: Cascade)
+  permission  AdminPermission @relation(fields: [permissionId], references: [id], onDelete: Cascade)
+
+  @@unique([roleId, permissionId])
+  @@map("role_permissions")
+}
+
+// ==================== ACTIVITY LOGS ====================
+model AdminActivityLog {
+  id          Int         @id @default(autoincrement())
+  adminId     String      @map("admin_id")
+  action      String
+  module      String
+  referenceId String?     @map("reference_id")
+  ipAddress   String?     @map("ip_address")
+  
+  admin       AdminUser   @relation(fields: [adminId], references: [id], onDelete: Cascade)
+  createdAt   DateTime    @default(now()) @map("created_at")
+
+  @@map("admin_activity_logs")
+  @@index([adminId])
+}
+
+// ==================== SETTINGS ====================
+model SiteSetting {
+  id          Int         @id @default(autoincrement())
+  settingKey  String      @unique @map("setting_key")
+  settingValue String     @map("setting_value")
+  
+  updatedAt   DateTime    @updatedAt @map("updated_at")
+
+  @@map("site_settings")
 }
