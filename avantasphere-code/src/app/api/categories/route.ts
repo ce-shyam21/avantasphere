@@ -1,19 +1,15 @@
 import { prisma } from '@/lib/prisma'
 import { NextResponse } from 'next/server'
+import type { Category } from '@prisma/client'
 
 export async function GET() {
   try {
-    const categories = await prisma.category.findMany({
-      where: { 
-        status: 'active' 
-      },
-      orderBy: { 
-        displayOrder: 'asc' 
-      },
+    const categories: Category[] = await prisma.category.findMany({
+      where: { status: 'active' },
+      orderBy: { displayOrder: 'asc' },
     })
 
-    // Transform to match your frontend format
-    const formattedCategories = categories.map((cat) => ({
+    const formattedCategories = categories.map((cat: Category) => ({
       id: cat.id.toString(),
       name: cat.name,
       slug: cat.slug,
