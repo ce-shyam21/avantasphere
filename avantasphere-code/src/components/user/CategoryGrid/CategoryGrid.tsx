@@ -4,14 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import CategoryCard from "../CategoryCard/CategoryCard";
 import "./category-grid.css";
-
-interface Category {
-  id: string;
-  name: string;
-  slug: string;
-  description: string;
-  image: string;
-}
+import { Category } from "@/models";
 
 export default function CategoryGrid() {
   const [categories, setCategories] = useState<Category[]>([]);
