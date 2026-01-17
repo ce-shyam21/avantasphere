@@ -11,8 +11,6 @@ import Breadcrumb from "@/components/shared/Breadcrumb/Breadcrumb";
 import { Product } from "@/models";
 import "./products.css";
 
-// Note: For client components, metadata should be handled via layout or next/head
-
 const ITEMS_PER_PAGE = 12;
 
 export default function ProductsPage() {
@@ -29,10 +27,11 @@ export default function ProductsPage() {
 
   useEffect(() => {
     const loadProducts = async () => {
-      try {
+      try {debugger;
         setLoading(true);
         const response = await fetch("/api/products");
         const data = await response.json();
+        console.log(data);
         setProducts(data.products);
         setFilteredProducts(data.products);
       } catch (error) {
@@ -45,25 +44,32 @@ export default function ProductsPage() {
     loadProducts();
   }, []);
 
-  useEffect(() => {
+  useEffect(() => {debugger;
     let results = products;
 
+    // Search filter
     if (searchTerm) {
       results = results.filter((product) =>
-        product.name.toLowerCase().includes(searchTerm.toLowerCase())
+        product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        product.shortDescription?.toLowerCase().includes(searchTerm.toLowerCase())
       );
     }
 
+    // Category filter - now using numeric IDs
     if (selectedCategory) {
-      results = results.filter((product) => product.categoryId === selectedCategory);
+      const categoryId = (selectedCategory);
+      results = results.filter((product) => product.categoryId === categoryId);
+      console.log("Filtering by category ID:", categoryId, results);
     }
 
-    results = results.filter(
-      (product) =>
-        product.pricing.cost >= priceRange.min &&
-        product.pricing.cost <= priceRange.max
-    );
+    // Price filter
+    // results = results.filter(
+    //   (product) =>
+    //     product.pricing.cost >= priceRange.min &&
+    //     product.pricing.cost <= priceRange.max
+    // );
 
+    // Sorting
     if (sortBy === "price-low") {
       results.sort((a, b) => a.pricing.cost - b.pricing.cost);
     } else if (sortBy === "price-high") {

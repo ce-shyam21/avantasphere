@@ -1,16 +1,36 @@
-import { readFileSync } from "fs";
-import path from "path";
+import { prisma } from '@/lib/prisma'
+import { NextResponse } from 'next/server'
 
 export async function GET() {
   try {
-    const dataPath = path.join(process.cwd(), "data", "categories.json");
-    const fileContent = readFileSync(dataPath, "utf-8");
-    const data = JSON.parse(fileContent);
-    return Response.json(data);
+    const categories = await prisma.category.findMany({
+      where: { 
+        status: 'active' 
+      },
+      orderBy: { 
+        displayOrder: 'asc' 
+      },
+    })
+
+    // Transform to match your frontend format
+    const formattedCategories = categories.map((cat) => ({
+      id: cat.id.toString(),
+      name: cat.name,
+      slug: cat.slug,
+      description: cat.description,
+      image: cat.imageUrl,
+      featured: true,
+      subCategories: [],
+      createdAt: cat.createdAt.toISOString(),
+      updatedAt: cat.updatedAt.toISOString(),
+    }))
+
+    return NextResponse.json({ categories: formattedCategories })
   } catch (error) {
-    return Response.json(
-      { error: "Failed to load categories" },
+    console.error('Error fetching categories:', error)
+    return NextResponse.json(
+      { error: 'Failed to fetch categories' },
       { status: 500 }
-    );
+    )
   }
 }

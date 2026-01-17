@@ -1,7 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./filter-panel.css";
+
+interface Category {
+  id: number;
+  name: string;
+  slug: string;
+}
 
 interface FilterPanelProps {
   onCategoryChange: (category: string) => void;
@@ -22,8 +28,29 @@ export default function FilterPanel({
   tempPriceRange,
   onApplyPriceFilter,
 }: FilterPanelProps) {
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [loading, setLoading] = useState(true);
   const [minValue, setMinValue] = useState(tempPriceRange.min.toString());
   const [maxValue, setMaxValue] = useState(tempPriceRange.max.toString());
+
+  // Fetch categories from API
+  useEffect(() => {
+    const loadCategories = async () => {
+      try {debugger;
+        setLoading(true);
+        const response = await fetch("/api/categories");
+        const data = await response.json();
+        console.log(data);
+        setCategories(data.categories || []);
+      } catch (error) {
+        console.error("Failed to load categories:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadCategories();
+  }, []);
 
   const handleMinChange = (value: string) => {
     setMinValue(value);
@@ -66,36 +93,23 @@ export default function FilterPanel({
             />
             <span>All Categories</span>
           </label>
-          <label className="filter-option">
-            <input
-              type="radio"
-              name="category"
-              value="cat_001"
-              checked={selectedCategory === "cat_001"}
-              onChange={(e) => onCategoryChange(e.target.value)}
-            />
-            <span>Electronics</span>
-          </label>
-          <label className="filter-option">
-            <input
-              type="radio"
-              name="category"
-              value="cat_002"
-              checked={selectedCategory === "cat_002"}
-              onChange={(e) => onCategoryChange(e.target.value)}
-            />
-            <span>Textiles</span>
-          </label>
-          <label className="filter-option">
-            <input
-              type="radio"
-              name="category"
-              value="cat_003"
-              checked={selectedCategory === "cat_003"}
-              onChange={(e) => onCategoryChange(e.target.value)}
-            />
-            <span>Machinery</span>
-          </label>
+          
+          {loading ? (
+            <div className="filter-loading">Loading categories...</div>
+          ) : (
+            categories.map((category) => (
+              <label key={category.id} className="filter-option">
+                <input
+                  type="radio"
+                  name="category"
+                  value={category.id.toString()}
+                  checked={selectedCategory === category.id.toString()}
+                  onChange={(e) => onCategoryChange(e.target.value)}
+                />
+                <span>{category.name}</span>
+              </label>
+            ))
+          )}
         </div>
       </div>
 
