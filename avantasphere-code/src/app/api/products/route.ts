@@ -1,27 +1,16 @@
 import { prisma } from '@/lib/prisma'
 import { NextRequest, NextResponse } from 'next/server'
-import { Prisma } from '@prisma/client'
-
-type ProductWithRelations = Prisma.ProductGetPayload<{
-  include: {
-    images: true
-    pricing: true
-    category: true
-  }
-}>
 
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url)
     const categoryId = searchParams.get('categoryId')
 
-    const where: Prisma.ProductWhereInput = {
-      status: 'active',
-      ...(categoryId && { categoryId: Number(categoryId) }),
-    }
-
     const products = await prisma.product.findMany({
-      where,
+      where: {
+        status: 'active',
+        ...(categoryId && { categoryId: Number(categoryId) }),
+      },
       include: {
         images: { orderBy: { sortOrder: 'asc' } },
         pricing: true,
@@ -30,8 +19,8 @@ export async function GET(request: NextRequest) {
       orderBy: { createdAt: 'desc' },
     })
 
-    const formattedProducts = (products as ProductWithRelations[]).map(
-      (product) => ({
+    return NextResponse.json({
+      products: products.map(product => ({
         id: product.id,
         name: product.productName,
         sku: product.productCode,
@@ -58,10 +47,8 @@ export async function GET(request: NextRequest) {
         featured: product.isFeatured,
         createdAt: product.createdAt.toISOString(),
         updatedAt: product.updatedAt.toISOString(),
-      })
-    )
-
-    return NextResponse.json({ products: formattedProducts })
+      })),
+    })
   } catch (error) {
     console.error('Error fetching products:', error)
     return NextResponse.json(

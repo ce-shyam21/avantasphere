@@ -1,24 +1,13 @@
 import { prisma } from '@/lib/prisma'
 import { NextRequest, NextResponse } from 'next/server'
-import { Prisma } from '@prisma/client'
-
-type ProductWithRelations = Prisma.ProductGetPayload<{
-  include: {
-    images: true
-    pricing: true
-    category: true
-  }
-}>
 
 export async function GET(
   request: NextRequest,
-  context: { params: Promise<{ id: string }> }
+  { params }: { params: { id: string } }
 ) {
   try {
-    const { id } = await context.params
-
     const product = await prisma.product.findUnique({
-      where: { id },
+      where: { id: params.id },
       include: {
         images: { orderBy: { sortOrder: 'asc' } },
         pricing: true,
@@ -30,35 +19,33 @@ export async function GET(
       return NextResponse.json({ error: 'Product not found' }, { status: 404 })
     }
 
-    const productData = product as ProductWithRelations
-
     return NextResponse.json({
-      id: productData.id,
-      name: productData.productName,
-      sku: productData.productCode,
-      categoryId: productData.categoryId.toString(),
-      shortDescription: productData.shortDescription,
-      fullDescription: productData.detailedDescription,
+      id: product.id,
+      name: product.productName,
+      sku: product.productCode,
+      categoryId: product.categoryId.toString(),
+      shortDescription: product.shortDescription,
+      fullDescription: product.detailedDescription,
 
-      images: productData.images.map(img => img.imageUrl),
+      images: product.images.map(img => img.imageUrl),
 
       thumbnailImage:
-        productData.images.find(img => img.isPrimary)?.imageUrl ||
-        productData.images[0]?.imageUrl,
+        product.images.find(img => img.isPrimary)?.imageUrl ||
+        product.images[0]?.imageUrl,
 
-      specifications: productData.specifications || {},
+      specifications: product.specifications || {},
 
       pricing: {
-        cost: productData.pricing?.priceFrom || 0,
-        currency: productData.pricing?.currency || 'USD',
-        moq: productData.pricing?.minOrderQuantity || 1,
+        cost: product.pricing?.priceFrom || 0,
+        currency: product.pricing?.currency || 'USD',
+        moq: product.pricing?.minOrderQuantity || 1,
         showPrice: true,
       },
 
-      visibility: productData.status === 'active',
-      featured: productData.isFeatured,
-      createdAt: productData.createdAt.toISOString(),
-      updatedAt: productData.updatedAt.toISOString(),
+      visibility: product.status === 'active',
+      featured: product.isFeatured,
+      createdAt: product.createdAt.toISOString(),
+      updatedAt: product.updatedAt.toISOString(),
     })
   } catch (error) {
     console.error('Error fetching product:', error)
