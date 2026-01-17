@@ -96,3 +96,25 @@ Production (Vercel/Netlify/etc.):
 
 Uses the exact same Supabase database
 Just add the same environment variables to your hosting platform
+
+
+
+== noe form the export  data form the json files
+E:\Personal_Projects_new\avantasphere\avantasphere-code>npx prisma migrate reset
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "postgres", schema "public" at "aws-1-ap-south-1.pooler.supabase.com:5432"
+
+√ Are you sure you want to reset your database? All data will be lost. ... yes
+
+Applying migration `20260117065750_init`
+
+Database reset successful
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 20260117065750_init/
+    └─ migration.sql
+
